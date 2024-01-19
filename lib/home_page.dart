@@ -3,10 +3,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import "buy_bitcoin.dart";
 
 Future<Album> fetchAlbum() async {
-  final response = await http
-      .get(Uri.parse('https://mempool.space/api/v1/prices'));
+  final response =
+      await http.get(Uri.parse('https://mempool.space/api/v1/prices'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -28,7 +29,6 @@ class Album {
   final int cHF;
   final int aUD;
   final int jPY;
-  
 
   const Album({
     required this.time,
@@ -87,26 +87,54 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-          children: [
-            const Center(
-              child: Text('BITCOIN PRICE', style: TextStyle(fontWeight: FontWeight.bold),),
-              ),
-            FutureBuilder<Album>(
-            future: futureAlbum,
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text('\$ ${snapshot.data!.uSD}', style: const TextStyle(height: 1.5, fontSize: 40));
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
+      body: Column(children: [
+        const Center(
+          child: Text(
+            'BITCOIN PRICE',
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          ]
         ),
+        FutureBuilder<Album>(
+          future: futureAlbum,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                  '\$${snapshot.data!.uSD.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, height: 1.5, fontSize: 48));
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
+            }
+
+            // By default, show a loading spinner.
+            return const CircularProgressIndicator();
+          },
+        ),
+        SizedBox(
+          height: 300,
+          child: Container(color: Colors.lightBlue),
+        ),
+        SizedBox(
+          width: 240,
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return const BuyBitcoinPage();
+                    },
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.orangeAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(6),
+                ),
+              ),
+              child: const Text('Buy Bitcoin')),
+        )
+      ]),
     );
   }
 }
