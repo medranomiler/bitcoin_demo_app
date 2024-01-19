@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import "buy_bitcoin.dart";
+import 'bitcoin_chart.dart';
 
 Future<Album> fetchAlbum() async {
   final response =
@@ -110,9 +111,10 @@ class _HomePageState extends State<HomePage> {
             return const CircularProgressIndicator();
           },
         ),
-        SizedBox(
+        const SizedBox(
           height: 300,
-          child: Container(color: Colors.lightBlue),
+          child: 
+        BitcoinLineChart(),
         ),
         SizedBox(
           width: 240,
