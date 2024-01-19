@@ -90,11 +90,15 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
           width: 240,
           child: ElevatedButton(
               onPressed: () {
+                double fees = double.parse(textFieldController.text) / 100;
+                double total = double.parse(textFieldController.text) + fees;
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => PreviewBuyPage(
                       bitcoinPurchaseAmount: textFieldController.text,
+                      fees: fees.toStringAsFixed(2),
+                      total: total.toStringAsFixed(2)
                     ),
                   ),
                 );
