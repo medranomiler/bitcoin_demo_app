@@ -1,12 +1,17 @@
 import "package:flutter/material.dart";
 import 'dart:async';
 import "bitcoin_price_api.dart";
+import "confirmation.dart";
 
 class PreviewBuyPage extends StatefulWidget {
   final String bitcoinPurchaseAmount;
   final String fees;
   final String total;
-  const PreviewBuyPage({Key? key, required this.bitcoinPurchaseAmount, required this.fees, required this.total})
+  const PreviewBuyPage(
+      {Key? key,
+      required this.bitcoinPurchaseAmount,
+      required this.fees,
+      required this.total})
       : super(key: key);
 
   @override
@@ -15,12 +20,28 @@ class PreviewBuyPage extends StatefulWidget {
 
 class _PreviewBuyPageState extends State<PreviewBuyPage> {
   late Future<Album> futureAlbum;
-  
+  late double bitcoinAmount = 0;
+  late String bitcoinPurchasePrice = "";
 
   @override
   void initState() {
     super.initState();
     futureAlbum = fetchAlbum();
+    fetchBitcoinAmount();
+  }
+
+  Future<void> fetchBitcoinAmount() async {
+    try {
+      Album album = await fetchAlbum();
+      setState(() {
+        bitcoinAmount = double.parse(widget.bitcoinPurchaseAmount) / album.uSD;
+      });
+      setState(() {
+        bitcoinPurchasePrice = album.uSD.toStringAsFixed(2);
+      });
+    } catch (error) {
+      debugPrint('Error fetching bitcoin amount: $error');
+    }
   }
 
   @override
@@ -43,7 +64,6 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                   future: futureAlbum,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                    double bitcoinAmount = double.parse(widget.bitcoinPurchaseAmount) / snapshot.data!.uSD;
                       return Column(
                         children: [
                           Text(
@@ -72,36 +92,54 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                     return const CircularProgressIndicator();
                   },
                 ),
-                 Row(
-                  children: [
-                    const Expanded(child: Text("Purchase amount")),
-                    Expanded(child: Text("\$ ${widget.bitcoinPurchaseAmount}", textAlign: TextAlign.right ,)),
-                  ]
+                Row(children: [
+                  const Expanded(child: Text("Purchase amount")),
+                  Expanded(
+                      child: Text(
+                    "\$ ${widget.bitcoinPurchaseAmount}",
+                    textAlign: TextAlign.right,
+                  )),
+                ]),
+                Row(children: [
+                  const Expanded(child: Text("Fees")),
+                  Expanded(
+                      child: Text(
+                    "\$ ${widget.fees}",
+                    textAlign: TextAlign.right,
+                  )),
+                ]),
+                Row(children: [
+                  const Expanded(child: Text("Total")),
+                  Expanded(
+                      child: Text(
+                    "\$ ${widget.total}",
+                    textAlign: TextAlign.right,
+                  )),
+                ]),
+                SizedBox(
+                  width: 240,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ConfirmationPage(
+                            total: widget.total,
+                            bitcoinAmount: bitcoinAmount.toStringAsFixed(8),
+                            bitcoinPurchasePrice: bitcoinPurchasePrice,
+                          ),
+                        ),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orangeAccent,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    child: const Text('Confirm'),
+                  ),
                 ),
-                                 Row(
-                  children: [
-                    const Expanded(child: Text("Fees")),
-                    Expanded(child: Text("\$ ${widget.fees}", textAlign: TextAlign.right ,)),
-                  ]
-                ),
-                Row(
-                  children: [
-                    const Expanded(child: Text("Total")),
-                    Expanded(child: Text("\$ ${widget.total}", textAlign: TextAlign.right ,)),
-                  ]
-                ),
-                 SizedBox(
-          width: 240,
-          child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orangeAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
-                ),
-              ),
-              child: const Text('Confirm')),
-        ),
               ],
             ),
           ),
