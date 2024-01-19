@@ -1,7 +1,7 @@
 import "package:bitcoin_demo_app/home_page.dart";
 import "package:flutter/material.dart";
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -32,7 +32,7 @@ class _RootPageState extends State<RootPage> {
       appBar: AppBar(
         title: const Text("Home"),
       ),
-      body: HomePage(),
+      body: const HomePage(),
       bottomNavigationBar: NavigationBar(
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: "Home"),
