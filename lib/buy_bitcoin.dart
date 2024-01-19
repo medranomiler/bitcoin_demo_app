@@ -12,7 +12,7 @@ class BuyBitcoinPage extends StatefulWidget {
 
 class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
   late Future<Album> futureAlbum;
-   
+   TextEditingController textFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -25,10 +25,10 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Column(children: [
-        const Row(
+        Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Expanded(
+            const Expanded(
               child: Text(
                 "Buy \$",
                 textAlign: TextAlign.right,
@@ -40,20 +40,21 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8),
                 child: TextField(
+                  controller: textFieldController,
                   autofocus: true,
                   keyboardType: TextInputType.number,
                   enableSuggestions: true,
                   autocorrect: true,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 48,
                       fontWeight: FontWeight.w700,
                       color: Colors.black),
                   textAlignVertical: TextAlignVertical.bottom,
                   textAlign: TextAlign.left,
                   expands: false,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: UnderlineInputBorder(borderSide: BorderSide.none),
                   ),
                 ),
@@ -92,7 +93,9 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PreviewBuyPage(),
+                    builder: (context) => PreviewBuyPage(
+                      bitcoinPurchaseAmount: textFieldController.text,
+                    ),
                   ),
                 );
               },

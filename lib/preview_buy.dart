@@ -1,20 +1,17 @@
 import "package:flutter/material.dart";
 
-class PreviewBuyPage extends StatefulWidget {
-  const PreviewBuyPage({super.key});
+class PreviewBuyPage extends StatelessWidget {
+  final String bitcoinPurchaseAmount;
 
-  @override
-  State<PreviewBuyPage> createState() => _PreviewBuyPageState();
-}
+  const PreviewBuyPage({Key? key, required this.bitcoinPurchaseAmount}) : super(key: key);
 
-class _PreviewBuyPageState extends State<PreviewBuyPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: const Column(children: [
-        Text("Preview Buy"),
-        Text("Preview Buy"),
+      body: Column(children: [
+        const Text("Preview Buy"),
+        Text(bitcoinPurchaseAmount),
       ],)
     );
   }
