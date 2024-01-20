@@ -26,6 +26,7 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
   late double bitcoinAmount = 0;
   late String bitcoinPurchasePrice = '';
   late int countdown;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -112,41 +113,58 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
               Row(children: [
                 const Expanded(child: Text("Purchase amount")),
                 Expanded(
-                    child: Text(
-                  "\$ ${widget.bitcoinPurchaseAmount}",
-                  textAlign: TextAlign.right,
-                )),
+                  child: Text(
+                    "\$ ${widget.bitcoinPurchaseAmount}",
+                    textAlign: TextAlign.right,
+                  ),
+                ),
               ]),
               Row(children: [
                 const Expanded(child: Text("Fees")),
                 Expanded(
-                    child: Text(
-                  "\$ ${widget.fees}",
-                  textAlign: TextAlign.right,
-                )),
+                  child: Text(
+                    "\$ ${widget.fees}",
+                    textAlign: TextAlign.right,
+                  ),
+                ),
               ]),
               Row(children: [
                 const Expanded(child: Text("Total")),
                 Expanded(
-                    child: Text(
-                  "\$ ${widget.total}",
-                  textAlign: TextAlign.right,
-                )),
+                  child: Text(
+                    "\$ ${widget.total}",
+                    textAlign: TextAlign.right,
+                  ),
+                ),
               ]),
+              // Simulating network call
+              SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: isLoading ? const CircularProgressIndicator() : null),
               SizedBox(
                 width: 240,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ConfirmationPage(
-                          total: widget.total,
-                          bitcoinAmount: bitcoinAmount.toStringAsFixed(8),
-                          bitcoinPurchasePrice: bitcoinPurchasePrice,
-                        ),
-                      ),
-                    );
+                    setState(() {
+                      isLoading = true;
+                      Timer.periodic(const Duration(seconds: 2), (Timer t) {
+                        setState(() {
+                          isLoading = false;
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ConfirmationPage(
+                                total: widget.total,
+                                bitcoinAmount: bitcoinAmount.toStringAsFixed(8),
+                                bitcoinPurchasePrice: bitcoinPurchasePrice,
+                              ),
+                            ),
+                          );
+                          t.cancel();
+                        });
+                      });
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.orangeAccent,

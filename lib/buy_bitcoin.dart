@@ -87,9 +87,9 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
           style: TextStyle(
               fontSize: 48, fontWeight: FontWeight.w700, color: Colors.blue),
         ),
-        SizedBox(
-          height: 100,
-            child: FutureBuilder<int>(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: [ FutureBuilder<int>(
             future: fetchBitcoinPrice(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -104,7 +104,7 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
               return const CircularProgressIndicator();
             },
           ),
-        ),
+      ],),
         SizedBox(
           width: 240,
           child: ElevatedButton(
