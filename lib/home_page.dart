@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import "buy_bitcoin.dart";
 import 'bitcoin_chart.dart';
@@ -13,12 +12,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late Future<Album> futureAlbum;
+  late int btcPriceApiResponse = 0;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+        fetchBitcoinPrice().then((data){
+      setState(() {
+       btcPriceApiResponse = data;
+      });
+  });
+  }
+
+      @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -31,12 +40,12 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),
-        FutureBuilder<Album>(
-          future: futureAlbum,
+        FutureBuilder<int>(
+          future: fetchBitcoinPrice(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Text(
-                  '\$${snapshot.data!.uSD.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  '\$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, height: 1.5, fontSize: 48));
             } else if (snapshot.hasError) {

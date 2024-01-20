@@ -11,13 +11,24 @@ class BuyBitcoinPage extends StatefulWidget {
 }
 
 class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
-  late Future<Album> futureAlbum;
+  late int btcPriceApiResponse = 0;
+  late Timer timer;
    TextEditingController textFieldController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    fetchBitcoinPrice().then((data){
+      setState(() {
+       btcPriceApiResponse = data;
+      });
+    });
+
+  }
+    @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -69,18 +80,17 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
         ),
         SizedBox(
           height: 100,
-            child: FutureBuilder<Album>(
-            future: futureAlbum,
+            child: FutureBuilder<int>(
+            future: fetchBitcoinPrice(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return Text(
-                  '1 BTC = \$${snapshot.data!.uSD.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                  '1 BTC = \$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                   style: const TextStyle(height: 1.5, fontSize: 18, color: Colors.blueGrey),
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
               }
-
               // By default, show a loading spinner.
               return const CircularProgressIndicator();
             },
