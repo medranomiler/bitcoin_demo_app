@@ -44,14 +44,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.withOpacity(0.1),
       body: Column(children: [
-        const Center(
-          child: Text(
-            'BITCOIN PRICE',
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        FutureBuilder<int>(
+         SizedBox(
+          width: double.infinity,
+          child: ColoredBox(
+            color: Colors.white,
+            child: Column(
+            
+            children: [
+              const Text(
+                'BITCOIN PRICE',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              FutureBuilder<int>(
           future: fetchBitcoinPrice(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
@@ -67,29 +73,35 @@ class _HomePageState extends State<HomePage> {
             return const CircularProgressIndicator();
           },
         ),
-        const SizedBox(
-          height: 300,
+            ],
+          ),
+          ),
+        ),
+        
+        const ColoredBox(
+          color: Colors.white,
           child: BitcoinLineChart(),
         ),
         SizedBox(
           width: 240,
           child: ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const BuyBitcoinPage();
-                    },
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.orangeAccent,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return const BuyBitcoinPage();
+                  },
                 ),
+              );
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.orangeAccent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(6),
               ),
-              child: const Text('Buy Bitcoin')),
+            ),
+            child: const Text('Buy Bitcoin'),
+          ),
         )
       ]),
     );

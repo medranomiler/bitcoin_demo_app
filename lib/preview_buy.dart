@@ -3,6 +3,7 @@ import 'bitcoin_price_api.dart';
 import 'confirmation.dart';
 import "progress_indicator.dart";
 import 'dart:async';
+import "dart:convert";
 
 class PreviewBuyPage extends StatefulWidget {
   final String bitcoinPurchaseAmount;
@@ -18,6 +19,10 @@ class PreviewBuyPage extends StatefulWidget {
 
   @override
   State<PreviewBuyPage> createState() => _PreviewBuyPageState();
+}
+
+onOrderConfirmed(bitcoinAmount, bitcoinPurchasePrice){
+  debugPrint(json.encode({"btcAmount": bitcoinAmount,  "btcUSDPrice": bitcoinPurchasePrice}));
 }
 
 class _PreviewBuyPageState extends State<PreviewBuyPage> {
@@ -148,6 +153,7 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                   onPressed: () {
                     setState(() {
                       isLoading = true;
+                      onOrderConfirmed(bitcoinAmount.toStringAsFixed(8), bitcoinPurchasePrice);
                       Timer.periodic(const Duration(seconds: 2), (Timer t) {
                         setState(() {
                           isLoading = false;
