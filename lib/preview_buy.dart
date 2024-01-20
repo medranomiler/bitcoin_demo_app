@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import 'dart:async';
 import "bitcoin_price_api.dart";
 import "confirmation.dart";
 
@@ -19,29 +18,26 @@ class PreviewBuyPage extends StatefulWidget {
 }
 
 class _PreviewBuyPageState extends State<PreviewBuyPage> {
-  late Future<Album> futureAlbum;
+  late int btcPriceApiResponse = 0;
   late double bitcoinAmount = 0;
   late String bitcoinPurchasePrice = "";
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
-    fetchBitcoinAmount();
+    fetchBitcoinPrice().then((data){
+      setState(() {
+       btcPriceApiResponse = data;
+       bitcoinAmount = double.parse(widget.bitcoinPurchaseAmount) / btcPriceApiResponse;
+       bitcoinPurchasePrice = btcPriceApiResponse.toStringAsFixed(2);
+      });
+    });
   }
 
-  Future<void> fetchBitcoinAmount() async {
-    try {
-      Album album = await fetchAlbum();
-      setState(() {
-        bitcoinAmount = double.parse(widget.bitcoinPurchaseAmount) / album.uSD;
-      });
-      setState(() {
-        bitcoinPurchasePrice = album.uSD.toStringAsFixed(2);
-      });
-    } catch (error) {
-      debugPrint('Error fetching bitcoin amount: $error');
-    }
+      @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed
+    super.dispose();
   }
 
   @override
@@ -60,8 +56,8 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                       fontWeight: FontWeight.w700,
                       color: Colors.blue),
                 ),
-                FutureBuilder<Album>(
-                  future: futureAlbum,
+                FutureBuilder<int>(
+                  future: fetchBitcoinPrice(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
                       return Column(
@@ -76,7 +72,7 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                             ),
                           ),
                           Text(
-                            '1 BTC = \$${snapshot.data!.uSD.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                            '1 BTC = \$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                             style: const TextStyle(
                                 height: 1.5,
                                 fontSize: 18,
