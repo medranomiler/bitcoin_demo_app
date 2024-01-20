@@ -1,4 +1,6 @@
+import 'package:bitcoin_demo_app/main.dart';
 import 'package:flutter/material.dart';
+import "package:lottie/lottie.dart";
 
 class ConfirmationPage extends StatefulWidget {
   final String total;
@@ -19,54 +21,63 @@ class ConfirmationPage extends StatefulWidget {
 class _ConfirmationPageState extends State<ConfirmationPage> {
   @override
   Widget build(BuildContext context) {
+    var media = MediaQuery.of(context).size;
+    var isSmallScreen = media.width < 390;
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(isSmallScreen ? 4 : 8,),
           child: Column(
             children: [
-              const Text(
-                "Success!",
+               Text(
+                "Size ${media.width} * ${media.height}",
                 style: TextStyle(
                   height: 1.5,
                   fontWeight: FontWeight.w700,
-                  fontSize: 48,
+                  fontSize: isSmallScreen ? 36 : 48,
                   color: Colors.blue,
                 ),
               ),
               Text(
                 "You purchased\n${widget.bitcoinAmount} BTC",
-                style: const TextStyle(
+                style: TextStyle(
                   height: 1.5,
                   fontWeight: FontWeight.w700,
-                  fontSize: 24,
+                  fontSize: isSmallScreen ? 20 : 24,
                   color: Colors.blue,
                 ),
               ),
               Text(
                 "at a price of \$${widget.bitcoinPurchasePrice.replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}",
-                style: const TextStyle(
+                style: TextStyle(
                   height: 1.5,
                   fontWeight: FontWeight.w700,
-                  fontSize: 24,
+                  fontSize: isSmallScreen ? 20 : 24,
                   color: Colors.blue,
                 ),
               ),
               Text(
                 "and paid \$${widget.total}",
-                style: const TextStyle(
+                style: TextStyle(
                   height: 1.5,
                   fontWeight: FontWeight.w700,
-                  fontSize: 24,
+                  fontSize: isSmallScreen ? 20 : 24,
                   color: Colors.blue,
                 ),
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.popUntil(context, (route) => route.isFirst);
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RootPage(),
+                    ), 
+                    (route) =>
+                        false,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orangeAccent,
@@ -75,6 +86,11 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
                   ),
                 ),
                 child: const Text('Done'),
+              ),
+              Lottie.asset('assets/bitcoin.json',
+                width: isSmallScreen ? 300 : 400,
+                height: isSmallScreen ? 300 : 400,
+                fit: BoxFit.fill,
               ),
             ],
           ),
