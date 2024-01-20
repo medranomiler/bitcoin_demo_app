@@ -275,7 +275,7 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: const FlDotData(
-            show: true,
+            show: false,
           ),
           belowBarData: BarAreaData(
             show: true,
