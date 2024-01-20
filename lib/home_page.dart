@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import "buy_bitcoin.dart";
 import 'bitcoin_chart.dart';
 import "bitcoin_price_api.dart";
-
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,20 +14,30 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late int btcPriceApiResponse = 0;
+  late Timer timer;
 
   @override
   void initState() {
     super.initState();
-        fetchBitcoinPrice().then((data){
+    fetchBitcoinPrice().then((data) {
       setState(() {
-       btcPriceApiResponse = data;
+        btcPriceApiResponse = data;
       });
-  });
+    });
+
+    timer = Timer.periodic(const Duration(seconds: 60), (Timer t) {
+      fetchBitcoinPrice().then((data) {
+        setState(() {
+          btcPriceApiResponse = data;
+        });
+      });
+    });
   }
 
-      @override
+  @override
   void dispose() {
     // Cancel the timer when the widget is disposed
+    timer.cancel();
     super.dispose();
   }
 
@@ -58,8 +69,7 @@ class _HomePageState extends State<HomePage> {
         ),
         const SizedBox(
           height: 300,
-          child: 
-        BitcoinLineChart(),
+          child: BitcoinLineChart(),
         ),
         SizedBox(
           width: 240,

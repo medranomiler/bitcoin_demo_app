@@ -13,7 +13,7 @@ class BuyBitcoinPage extends StatefulWidget {
 class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
   late int btcPriceApiResponse = 0;
   late Timer timer;
-   TextEditingController textFieldController = TextEditingController();
+  TextEditingController textFieldController = TextEditingController();
 
   @override
   void initState() {
@@ -24,10 +24,19 @@ class _BuyBitcoinPageState extends State<BuyBitcoinPage> {
       });
     });
 
+        timer = Timer.periodic(const Duration(seconds: 60), (Timer t) {
+      fetchBitcoinPrice().then((data) {
+        setState(() {
+          btcPriceApiResponse = data;
+        });
+      });
+    });
+
   }
     @override
   void dispose() {
     // Cancel the timer when the widget is disposed
+    timer.cancel();
     super.dispose();
   }
 
