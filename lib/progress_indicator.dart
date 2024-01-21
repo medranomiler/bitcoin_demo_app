@@ -43,7 +43,7 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
   Widget build(BuildContext context) {
     double progress = countdown / 60.0;
 
-    return LinearProgressIndicator(
+    return CircularProgressIndicator(
                 value: progress,
                 color: Colors.blue,
               );
