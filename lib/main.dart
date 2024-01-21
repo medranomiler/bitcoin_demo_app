@@ -1,6 +1,8 @@
+import "package:bitcoin_demo_app/btc_price_provider.dart";
 import "package:bitcoin_demo_app/home_page.dart";
 import "package:bitcoin_demo_app/profile.dart";
 import "package:flutter/material.dart";
+import "package:provider/provider.dart";
 
 void main() => runApp(const MyApp());
 
@@ -9,10 +11,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: "Bitcoin Demo App",
-      debugShowCheckedModeBanner: false,
-      home: RootPage(),
+    return ChangeNotifierProvider(
+      create:(context) => BitcoinPriceProvider(),
+      child: const MaterialApp(
+        home: RootPage(),
+        title: "Bitcoin Demo App",
+        debugShowCheckedModeBanner: false,
+        )
     );
   }
 }
