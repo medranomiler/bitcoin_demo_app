@@ -44,67 +44,72 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Home"),),
-      backgroundColor: Colors.blue.withOpacity(0.1),
-      body: Column(children: [
-         SizedBox(
-          width: double.infinity,
-          child: ColoredBox(
-            color: Colors.white,
-            child: Column(
-            
-            children: [
-              const Text(
-                'BITCOIN PRICE',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              FutureBuilder<int>(
-          future: fetchBitcoinPrice(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                  '\$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, height: 1.5, fontSize: 48));
-            } else if (snapshot.hasError) {
-              return Text('${snapshot.error}');
-            }
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+      ),
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(children: [
+          const Text(
+            "BITCOIN PRICE",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          FutureBuilder<int>(
+            future: fetchBitcoinPrice(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return Text(
+                    '\$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        height: 1.5,
+                        fontSize: 48));
+              } else if (snapshot.hasError) {
+                return Text('${snapshot.error}');
+              }
 
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ),
-            ],
-          ),
-          ),
-        ),
-        
-        const ColoredBox(
-          color: Colors.white,
-          child: BitcoinLineChart(),
-        ),
-        SizedBox(
-          width: 240,
-          child: ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return const BuyBitcoinPage();
-                  },
-                ),
-              );
+              // By default, show a loading spinner.
+              return const CircularProgressIndicator();
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.orangeAccent,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
+          ),
+          const BitcoinLineChart(),
+          Expanded(
+            child: SizedBox(
+              height: double.infinity,
+              width: double.infinity,
+              child: ColoredBox(
+                color: Colors.blue.withOpacity(0.1),
+                child: Center(
+                    child: Column(
+                  children: [
+                    SizedBox(
+                      width: 240,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) {
+                                return const BuyBitcoinPage();
+                              },
+                            ),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orangeAccent,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        child: const Text('Buy Bitcoin'),
+                      ),
+                    )
+                  ],
+                )),
               ),
             ),
-            child: const Text('Buy Bitcoin'),
-          ),
-        )
-      ]),
+          )
+        ]),
+      ),
     );
   }
 }

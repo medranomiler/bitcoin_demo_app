@@ -1,5 +1,5 @@
-import "package:bitcoin_demo_app/buy_bitcoin.dart";
 import "package:bitcoin_demo_app/home_page.dart";
+import "package:bitcoin_demo_app/profile.dart";
 import "package:flutter/material.dart";
 
 void main() => runApp(const MyApp());
@@ -9,11 +9,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: "Bitcoin Demo App",
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.orange),
-      home: const RootPage(),
+      home: RootPage(),
     );
   }
 }
@@ -28,29 +27,24 @@ class RootPage extends StatefulWidget {
 class _RootPageState extends State<RootPage> {
   int currentPage = 0;
  
-
-
   @override
   Widget build(BuildContext context) {
     final List pages = [
-      HomePage(),
-      BuyBitcoinPage()
+      const HomePage(),
+      const ProfilePage()
     ];
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: NavigationBar(
-
           destinations: const [
             NavigationDestination(icon: Icon(Icons.home), label: "Home"),
             NavigationDestination(
-                icon: Icon(Icons.currency_bitcoin_rounded), label: "Bitcoin"),
+                icon: Icon(Icons.person), label: "Profile"),
           ],
           onDestinationSelected: (int index) {
             setState(() {
               currentPage = index;
-              
             });
-            
           },
           selectedIndex: currentPage),
     );
