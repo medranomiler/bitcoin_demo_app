@@ -1,9 +1,8 @@
-import 'dart:async';
-
+import 'package:bitcoin_demo_app/btc_price_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import "buy_bitcoin.dart";
 import 'bitcoin_chart.dart';
-import "bitcoin_price_api.dart";
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,32 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  late int btcPriceApiResponse = 0;
-  late Timer timer;
-
   @override
   void initState() {
     super.initState();
-    fetchBitcoinPrice().then((data) {
-      setState(() {
-        btcPriceApiResponse = data;
-      });
-    });
-
-    timer = Timer.periodic(const Duration(seconds: 60), (Timer t) {
-      fetchBitcoinPrice().then((data) {
-        setState(() {
-          btcPriceApiResponse = data;
-        });
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    // Cancel the timer when the widget is disposed
-    timer.cancel();
-    super.dispose();
+    WidgetsBinding.instance.addPostFrameCallback((timestamp) {});
   }
 
   @override
@@ -54,24 +31,12 @@ class _HomePageState extends State<HomePage> {
             "BITCOIN PRICE",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          FutureBuilder<int>(
-            future: fetchBitcoinPrice(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return Text(
-                    '\$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        height: 1.5,
-                        fontSize: 48));
-              } else if (snapshot.hasError) {
-                return Text('${snapshot.error}');
-              }
-
-              // By default, show a loading spinner.
-              return const CircularProgressIndicator();
-            },
-          ),
+          Consumer<BitcoinPriceProvider>(builder: (context, value, child) {
+            return Text(
+              "\$${value.bitcoinPrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}",
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
+            );
+          }),
           const BitcoinLineChart(),
           Expanded(
             child: SizedBox(
