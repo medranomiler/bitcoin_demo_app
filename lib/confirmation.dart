@@ -33,7 +33,7 @@ class _ConfirmationPageState extends State<ConfirmationPage> {
           child: Column(
             children: [
                Text(
-                "Size ${media.width} * ${media.height}",
+                "Success!",
                 style: TextStyle(
                   height: 1.5,
                   fontWeight: FontWeight.w700,
