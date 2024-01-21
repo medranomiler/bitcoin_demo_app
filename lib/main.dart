@@ -1,4 +1,5 @@
 import "package:bitcoin_demo_app/btc_price_provider.dart";
+import "package:bitcoin_demo_app/btc_historical_price_provider.dart";
 import "package:bitcoin_demo_app/home_page.dart";
 import "package:bitcoin_demo_app/profile.dart";
 import "package:flutter/material.dart";
@@ -9,15 +10,18 @@ void main() => runApp(const MyApp());
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
+@override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create:(context) => BitcoinPriceProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => BitcoinPriceProvider()),
+        ChangeNotifierProvider(create: (context) => BitcoinHistoricalPriceProvider()), // Add the new provider
+      ],
       child: const MaterialApp(
         home: RootPage(),
         title: "Bitcoin Demo App",
         debugShowCheckedModeBanner: false,
-        )
+      ),
     );
   }
 }
