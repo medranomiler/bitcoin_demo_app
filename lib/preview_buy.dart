@@ -75,7 +75,7 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              const QuoteProgressIndicator(),
+              
               const Text(
                 "You're buying",
                 style: TextStyle(
@@ -83,13 +83,7 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                     fontWeight: FontWeight.w700,
                     color: Colors.blue),
               ),
-              FutureBuilder<int>(
-                future: fetchBitcoinPrice(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Column(
-                      children: [
-                        Text(
+              Text(
                           '${bitcoinAmount.toStringAsFixed(8)} BTC',
                           style: const TextStyle(
                             height: 1.5,
@@ -98,15 +92,24 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                             color: Colors.blue,
                           ),
                         ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+              const QuoteProgressIndicator(),
+              Padding(padding: const EdgeInsets.only(left: 8),
+              child: 
+              FutureBuilder<int>(
+                future: fetchBitcoinPrice(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return 
                         Text(
                           '1 BTC = \$${btcPriceApiResponse.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}',
                           style: const TextStyle(
                               height: 1.5,
                               fontSize: 18,
                               color: Colors.blueGrey),
-                        ),
-                      ],
-                    );
+                        );
                   } else if (snapshot.hasError) {
                     return Text('${snapshot.error}');
                   }
@@ -115,30 +118,37 @@ class _PreviewBuyPageState extends State<PreviewBuyPage> {
                   return const CircularProgressIndicator();
                 },
               ),
-              Row(children: [
-                const Expanded(child: Text("Purchase amount")),
+              ),
+            ]
+              
+          ),
+             Row(children: [
+                const Expanded(child: Text("Purchase amount", style: TextStyle(height: 2, fontWeight: FontWeight.w700))),
                 Expanded(
                   child: Text(
                     "\$ ${widget.bitcoinPurchaseAmount}",
                     textAlign: TextAlign.right,
+                    style: const TextStyle(height: 2, fontWeight: FontWeight.w700)
                   ),
                 ),
               ]),
               Row(children: [
-                const Expanded(child: Text("Fees")),
+                const Expanded(child: Text("Fees", style: TextStyle(height: 2, fontWeight: FontWeight.w700))),
                 Expanded(
                   child: Text(
                     "\$ ${widget.fees}",
                     textAlign: TextAlign.right,
+                    style: const TextStyle(height: 2, fontWeight: FontWeight.w700)
                   ),
                 ),
               ]),
               Row(children: [
-                const Expanded(child: Text("Total")),
+                const Expanded(child: Text("Total", style: TextStyle(height: 2, fontWeight: FontWeight.w700))),
                 Expanded(
                   child: Text(
                     "\$ ${widget.total}",
                     textAlign: TextAlign.right,
+                    style: const TextStyle(height: 2, fontWeight: FontWeight.w700)
                   ),
                 ),
               ]),
