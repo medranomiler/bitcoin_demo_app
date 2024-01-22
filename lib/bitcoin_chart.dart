@@ -3,7 +3,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 class BitcoinLineChart extends StatefulWidget {
   const BitcoinLineChart({Key? key}) : super(key: key);
 
@@ -13,6 +12,7 @@ class BitcoinLineChart extends StatefulWidget {
 
 class _BitcoinLineChartState extends State<BitcoinLineChart> {
   List<Color> gradientColors = [Colors.blue, Colors.blue];
+  double maxX = 0;
 
   @override
   void initState() {
@@ -24,10 +24,23 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
   }
 
   LineChartData mainData(List<FlSpot> formattedData) {
+    if (formattedData.isNotEmpty) {
+      maxX = formattedData[0].x;
+    }
     return LineChartData(
-      lineTouchData: const LineTouchData(
+      lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           tooltipBgColor: Colors.white,
+          getTooltipItems: (List<LineBarSpot> touchedSpots) {
+            return touchedSpots.map((LineBarSpot touchedSpot) {
+              final FlSpot spot = touchedSpot;
+              return LineTooltipItem(
+                "\$${spot.y.toStringAsFixed(0).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}",
+                const TextStyle(
+                    color: Colors.blue, fontWeight: FontWeight.w600),
+              );
+            }).toList();
+          },
           fitInsideHorizontally: true,
         ),
       ),
@@ -39,7 +52,7 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
         show: false,
       ),
       minX: 1500000000,
-      maxX: 1705860000,
+      maxX: maxX,
       minY: 0,
       maxY: 70000,
       backgroundColor: Colors.white,
@@ -66,23 +79,26 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
     );
   }
 
-@override
-Widget build(BuildContext context) {
-  return Consumer<BitcoinHistoricalPriceProvider>(
-    builder: (context, value, child) {
-      final prices = value.prices;
-      List<FlSpot> formattedData = prices.where((e) => e.usd != -1.0).map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble())).toList();
-      return Stack(
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1.70,
-            child: LineChart(
-              mainData(formattedData),
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<BitcoinHistoricalPriceProvider>(
+      builder: (context, value, child) {
+        final prices = value.prices;
+        List<FlSpot> formattedData = prices
+            .where((e) => e.usd != -1.0)
+            .map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble()))
+            .toList();
+        return Stack(
+          children: <Widget>[
+            AspectRatio(
+              aspectRatio: 1.70,
+              child: LineChart(
+                mainData(formattedData),
+              ),
             ),
-          ),
-        ],
-      );
-    },
-  );
-}
+          ],
+        );
+      },
+    );
+  }
 }
