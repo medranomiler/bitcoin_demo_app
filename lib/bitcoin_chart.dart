@@ -117,125 +117,130 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
               aspectRatio: 1.70,
               child: LineChart(
                 mainData(formattedDataAll),
+                duration: const Duration(milliseconds: 0),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(4, 8, 4, 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      List<FlSpot> oneWeekPrices =
-                          List.from(formattedDataAll.sublist(0, 167));
-                      double oneWeekMinX = oneWeekPrices.last.x;
-                      double oneWeekMaxX = oneWeekPrices.first.x;
-                      oneWeekPrices.sort((a, b) => b.y.compareTo(a.y));
-                      double oneWeekMinY = oneWeekPrices.last.y;
-                      double oneWeekMaxY = oneWeekPrices.first.y;
-                      debugPrint("oneWeekMinX: $oneWeekMinX");
-                      debugPrint("oneWeekMaxX: $oneWeekMaxX");
-                      debugPrint("oneWeekMinY: $oneWeekMinY");
-                      debugPrint("oneWeekMaxY: $oneWeekMaxY");
-                      setState(() {
-                        isOneYear = false;
-                        isOneMonth = false;
-                        isOneWeek = true;
-                        minX = oneWeekMinX;
-                        maxX = oneWeekMaxX;
-                        minY = oneWeekMinY - 1000;
-                        maxY = oneWeekMaxY + 1000;
-                      });
-                    },
-                    child: const Text(
-                      "1W",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
+            Container(
+              color: Colors.blue.withOpacity(0.1),
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                // Set your desired background color here
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        List<FlSpot> oneWeekPrices =
+                            List.from(formattedDataAll.sublist(0, 167));
+                        double oneWeekMinX = oneWeekPrices.last.x;
+                        double oneWeekMaxX = oneWeekPrices.first.x;
+                        oneWeekPrices.sort((a, b) => b.y.compareTo(a.y));
+                        double oneWeekMinY = oneWeekPrices.last.y;
+                        double oneWeekMaxY = oneWeekPrices.first.y;
+                        debugPrint("oneWeekMinX: $oneWeekMinX");
+                        debugPrint("oneWeekMaxX: $oneWeekMaxX");
+                        debugPrint("oneWeekMinY: $oneWeekMinY");
+                        debugPrint("oneWeekMaxY: $oneWeekMaxY");
+                        setState(() {
+                          isOneYear = false;
+                          isOneMonth = false;
+                          isOneWeek = true;
+                          minX = oneWeekMinX;
+                          maxX = oneWeekMaxX;
+                          minY = oneWeekMinY - 1000;
+                          maxY = oneWeekMaxY + 1000;
+                        });
+                      },
+                      child: const Text(
+                        "1W",
+                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      List<FlSpot> oneMonthPrices =
-                          List.from(formattedDataAll.sublist(0, 719));
-                      double oneMonthMinX = oneMonthPrices.last.x;
-                      double oneMonthMaxX = oneMonthPrices.first.x;
-                      oneMonthPrices.sort((a, b) => b.y.compareTo(a.y));
-                      double oneMonthMinY = oneMonthPrices.last.y;
-                      double oneMonthMaxY = oneMonthPrices.first.y;
-                      debugPrint("oneMonthMinX: $oneMonthMinX");
-                      debugPrint("oneMonthMaX: $oneMonthMaxX");
-                      debugPrint("oneMonthMinY: $oneMonthMinY");
-                      debugPrint("oneMonthMaxY: $oneMonthMaxY");
-                      setState(() {
-                        isOneYear = false;
-                        isOneWeek = false;
-                        isOneMonth = true;
-                        minX = oneMonthMinX;
-                        maxX = oneMonthMaxX;
-                        minY = oneMonthMinY - 1000;
-                        maxY = oneMonthMaxY + 1000;
-                      });
-                    },
-                    child: const Text(
-                      "1M",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ElevatedButton(
+                      onPressed: () {
+                        List<FlSpot> oneMonthPrices =
+                            List.from(formattedDataAll.sublist(0, 719));
+                        double oneMonthMinX = oneMonthPrices.last.x;
+                        double oneMonthMaxX = oneMonthPrices.first.x;
+                        oneMonthPrices.sort((a, b) => b.y.compareTo(a.y));
+                        double oneMonthMinY = oneMonthPrices.last.y;
+                        double oneMonthMaxY = oneMonthPrices.first.y;
+                        debugPrint("oneMonthMinX: $oneMonthMinX");
+                        debugPrint("oneMonthMaX: $oneMonthMaxX");
+                        debugPrint("oneMonthMinY: $oneMonthMinY");
+                        debugPrint("oneMonthMaxY: $oneMonthMaxY");
+                        setState(() {
+                          isOneYear = false;
+                          isOneWeek = false;
+                          isOneMonth = true;
+                          minX = oneMonthMinX;
+                          maxX = oneMonthMaxX;
+                          minY = oneMonthMinY - 1000;
+                          maxY = oneMonthMaxY + 1000;
+                        });
+                      },
+                      child: const Text(
+                        "1M",
+                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      List<FlSpot> oneYearPrices =
-                          List.from(formattedDataAll.sublist(0, 8759));
-                      double oneYearMinX = oneYearPrices.last.x;
-                      double oneYearMaxX = oneYearPrices.first.x;
-                      formattedDataAll.sort((a, b) => b.y.compareTo(a.y));
-                      double oneYearMinY = formattedDataAll.last.y;
-                      double oneYearMaxY = formattedDataAll.first.y;
-                      debugPrint("oneYearMinX: $oneYearMinX");
-                      debugPrint("oneYearMaxX: $oneYearMaxX");
-                      debugPrint("oneYearMinY: $oneYearMinY");
-                      debugPrint("oneYearMaxY: $oneYearMaxY");
-                      setState(() {
-                        isOneMonth = false;
-                        isOneWeek = false;
-                        isOneYear = true;
-                        minX = oneYearMinX;
-                        maxX = oneYearMaxX;
-                        minY = oneYearMinY;
-                        maxY = oneYearMaxY;
-                      });
-                    },
-                    child: const Text(
-                      "1Y",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
+                    ElevatedButton(
+                      onPressed: () {
+                        List<FlSpot> oneYearPrices =
+                            List.from(formattedDataAll.sublist(0, 8759));
+                        double oneYearMinX = oneYearPrices.last.x;
+                        double oneYearMaxX = oneYearPrices.first.x;
+                        formattedDataAll.sort((a, b) => b.y.compareTo(a.y));
+                        double oneYearMinY = formattedDataAll.last.y;
+                        double oneYearMaxY = formattedDataAll.first.y;
+                        debugPrint("oneYearMinX: $oneYearMinX");
+                        debugPrint("oneYearMaxX: $oneYearMaxX");
+                        debugPrint("oneYearMinY: $oneYearMinY");
+                        debugPrint("oneYearMaxY: $oneYearMaxY");
+                        setState(() {
+                          isOneMonth = false;
+                          isOneWeek = false;
+                          isOneYear = true;
+                          minX = oneYearMinX;
+                          maxX = oneYearMaxX;
+                          minY = oneYearMinY;
+                          maxY = oneYearMaxY;
+                        });
+                      },
+                      child: const Text(
+                        "1Y",
+                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      double allMinX = formattedDataAll.last.x;
-                      double allMaxX = formattedDataAll.first.x;
-                      formattedDataAll.sort((a, b) => b.y.compareTo(a.y));
-                      double allMinY = formattedDataAll.last.y;
-                      double allMaxY = formattedDataAll.first.y;
-                      debugPrint("allMinY: $allMinY");
-                      debugPrint("allMaxY: $allMaxY");
-                      debugPrint("allMinX: $allMinX");
-                      debugPrint("allMaxX: $allMaxX");
+                    ElevatedButton(
+                      onPressed: () {
+                        double allMinX = formattedDataAll.last.x;
+                        double allMaxX = formattedDataAll.first.x;
+                        formattedDataAll.sort((a, b) => b.y.compareTo(a.y));
+                        double allMinY = formattedDataAll.last.y;
+                        double allMaxY = formattedDataAll.first.y;
+                        debugPrint("allMinY: $allMinY");
+                        debugPrint("allMaxY: $allMaxY");
+                        debugPrint("allMinX: $allMinX");
+                        debugPrint("allMaxX: $allMaxX");
 
-                      setState(() {
-                        isOneMonth = false;
-                        isOneWeek = false;
-                        isOneYear = false;
-                        minX = allMinX;
-                        maxX = allMaxX;
-                        minY = allMinY;
-                        maxY = allMaxY;
-                      });
-                    },
-                    child: const Text(
-                      "ALL",
-                      style: TextStyle(fontSize: 12, color: Colors.black),
+                        setState(() {
+                          isOneMonth = false;
+                          isOneWeek = false;
+                          isOneYear = false;
+                          minX = allMinX;
+                          maxX = allMaxX;
+                          minY = allMinY;
+                          maxY = allMaxY;
+                        });
+                      },
+                      child: const Text(
+                        "ALL",
+                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ],
