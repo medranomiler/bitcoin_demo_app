@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'btc_price_service.dart';
+import '../services/btc_price_service.dart';
 
 class BitcoinPriceProvider extends ChangeNotifier {
   final _service = BitcoinPriceService();

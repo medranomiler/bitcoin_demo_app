@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'btc_historical_price_model.dart';
+import '../models/btc_historical_price_model.dart';
 
 class BitcoinHistoricalPriceService {
   Future<List<BitcoinHistoricalPrice>> getBitcoinHistoricalPrices() async {

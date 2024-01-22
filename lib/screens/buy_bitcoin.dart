@@ -1,7 +1,7 @@
 import 'dart:async';
 import "package:flutter/material.dart";
-import "package:bitcoin_demo_app/preview_buy.dart";
-import "bitcoin_price_api.dart";
+import 'package:bitcoin_demo_app/screens/preview_buy.dart';
+import '../utils/bitcoin_price_api.dart';
 
 class BuyBitcoinPage extends StatefulWidget {
   const BuyBitcoinPage({Key? key}) : super(key: key);

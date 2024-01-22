@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'bitcoin_price_api.dart';
+import '../utils/bitcoin_price_api.dart';
 import 'confirmation.dart';
-import "progress_indicator.dart";
+import '../widgets/progress_indicator.dart';
 import 'dart:async';
 import "dart:convert";
 

@@ -1,7 +1,7 @@
-import "package:bitcoin_demo_app/btc_price_provider.dart";
-import "package:bitcoin_demo_app/btc_historical_price_provider.dart";
-import "package:bitcoin_demo_app/home_page.dart";
-import "package:bitcoin_demo_app/profile.dart";
+import 'package:bitcoin_demo_app/providers/btc_price_provider.dart';
+import 'package:bitcoin_demo_app/providers/btc_historical_price_provider.dart';
+import 'package:bitcoin_demo_app/screens/home_page.dart';
+import 'package:bitcoin_demo_app/screens/profile.dart';
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 

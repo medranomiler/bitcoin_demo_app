@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import "wip_screen.dart";
+import '../widgets/wip_screen.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});

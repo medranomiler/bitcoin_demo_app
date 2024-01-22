@@ -1,5 +1,5 @@
-import 'package:bitcoin_demo_app/btc_historical_price_model.dart';
-import 'package:bitcoin_demo_app/btc_historical_price_provider.dart';
+import 'package:bitcoin_demo_app/models/btc_historical_price_model.dart';
+import 'package:bitcoin_demo_app/providers/btc_historical_price_provider.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

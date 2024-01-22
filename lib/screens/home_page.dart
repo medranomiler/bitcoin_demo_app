@@ -1,8 +1,8 @@
-import 'package:bitcoin_demo_app/btc_price_provider.dart';
+import 'package:bitcoin_demo_app/providers/btc_price_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import "buy_bitcoin.dart";
-import 'bitcoin_chart.dart';
+import '../widgets/bitcoin_chart.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
