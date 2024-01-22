@@ -21,13 +21,18 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
   bool isOneMonth = false;
   bool isOneYear = false;
 
+List<FlSpot> _skipEveryNthPoint(List<FlSpot> originalList, int n) {
+  List<FlSpot> result = [];
+  for (int i = 0; i < originalList.length; i += n) {
+    result.add(originalList[i]);
+  }
+  return result;
+}
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Provider.of<BitcoinHistoricalPriceProvider>(context, listen: false)
-          .getHistoricalPrices();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
   }
 
   LineChartData mainData(List<FlSpot> formattedDataAll) {
@@ -77,10 +82,10 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
           spots: isOneWeek
               ? formattedDataAll.sublist(0, 168)
               : isOneMonth
-                  ? formattedDataAll.sublist(0, 719)
+                  ? _skipEveryNthPoint(formattedDataAll.sublist(0, 720),  4)
                   : isOneYear
-                      ? formattedDataAll.sublist(0, 8759)
-                      : formattedDataAll,
+                      ? _skipEveryNthPoint(formattedDataAll.sublist(0, 8759), 24)
+                      : _skipEveryNthPoint(formattedDataAll,  4),
           isCurved: true,
           color: Colors.blue,
           barWidth: 4,
@@ -230,8 +235,8 @@ class _BitcoinLineChartState extends State<BitcoinLineChart> {
                           isOneYear = false;
                           minX = allMinX;
                           maxX = allMaxX;
-                          minY = allMinY;
-                          maxY = allMaxY;
+                          minY = allMinY - 1000 ;
+                          maxY = allMaxY + 1000;
                         });
                       },
                       child: const Text(
