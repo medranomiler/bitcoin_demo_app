@@ -28,6 +28,8 @@ class BitcoinPriceProvider extends ChangeNotifier {
     try {
       final response = await _service.getBitcoinPrice();
       _btcPrice = response;
+    } catch (error) {
+      debugPrint("Error fetching btc price: $error");
     } finally {
       isLoading = false;
       notifyListeners();

@@ -1,7 +1,7 @@
+import 'dart:async';
 import 'package:bitcoin_demo_app/services/btc_historical_price_service.dart';
 import 'package:bitcoin_demo_app/models/btc_historical_price_model.dart';
 import 'package:flutter/material.dart';
-
 
 class BitcoinHistoricalPriceProvider extends ChangeNotifier {
   final _service = BitcoinHistoricalPriceService();
@@ -9,15 +9,37 @@ class BitcoinHistoricalPriceProvider extends ChangeNotifier {
   List<BitcoinHistoricalPrice> _prices = [];
   List<BitcoinHistoricalPrice> get prices => _prices;
 
+  late Timer _timer;
+  final Duration _fetchInterval = const Duration(minutes: 60);
 
-Future<void> getHistoricalPrices() async {
-  isLoading = true;
-  notifyListeners();
+  BitcoinHistoricalPriceProvider() {
+    _fetchHistroicalPrices();
 
-  final response = await _service.getBitcoinHistoricalPrices();
+    _timer = Timer.periodic(_fetchInterval, (Timer t) {
+      if (!isLoading) {
+        _fetchHistroicalPrices();
+      }
+    });
+  }
 
-  _prices = response;
-  isLoading = false;
-  notifyListeners();
-}
+  Future<void> _fetchHistroicalPrices() async {
+    isLoading = true;
+    notifyListeners();
+
+    try {
+      final response = await _service.getBitcoinHistoricalPrices();
+      _prices = response;
+    } catch (error) {
+      debugPrint("Error fetching historical btc prices: $error");
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 }
