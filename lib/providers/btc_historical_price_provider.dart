@@ -42,4 +42,6 @@ class BitcoinHistoricalPriceProvider extends ChangeNotifier {
     _timer.cancel();
     super.dispose();
   }
+
+  void getHistoricalBitcoinPrices() {}
 }

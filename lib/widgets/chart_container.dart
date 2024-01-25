@@ -23,6 +23,11 @@ class _ChartContainerState extends State<ChartContainer> {
   Widget build(BuildContext context) {
     return Consumer<BitcoinHistoricalPriceProvider>(
         builder: (context, value, child) {
+      if (value.isLoading) {
+        return const Center(
+          child: CircularProgressIndicator(color: Colors.blue,),
+        );
+      }
       final prices = value.prices;
       List<BitcoinHistoricalPrice> filteredPrices =
           prices.where((e) => e.usd > 1).toList();

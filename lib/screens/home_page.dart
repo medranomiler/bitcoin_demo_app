@@ -32,6 +32,13 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
           Consumer<BitcoinPriceProvider>(builder: (context, value, child) {
+            if (value.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.blue,
+                ),
+              );
+            }
             return Text(
               "\$${value.bitcoinPrice.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}",
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 48),
