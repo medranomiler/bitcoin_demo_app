@@ -1,9 +1,8 @@
-// Model
-class BitcoinPrice{
-  final int usd;
+// // Model
+// class BitcoinPrice {
+//   final int usd;
 
-
-BitcoinPrice({
-  required this.usd,
-});
-}
+//   BitcoinPrice({
+//     required this.usd,
+//   });
+// }
