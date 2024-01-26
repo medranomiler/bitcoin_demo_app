@@ -1,3 +1,4 @@
+import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:bitcoin_demo_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:bitcoin_demo_app/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:bitcoin_demo_app/ui/views/home/home_view.dart';
@@ -22,6 +23,7 @@ import 'package:bitcoin_demo_app/ui/views/confirmation/confirmation_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
+    LazySingleton(classType: ApiService),
     // @stacked-service
   ],
   bottomsheets: [

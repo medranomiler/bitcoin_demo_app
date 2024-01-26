@@ -1,6 +1,6 @@
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:bitcoin_demo_app/ui/common/ui_helpers.dart';
 
 import 'home_viewmodel.dart';
 
@@ -13,86 +13,11 @@ class HomeView extends StackedView<HomeViewModel> {
     HomeViewModel viewModel,
     Widget? child,
   ) {
-    return Scaffold(
+    return const Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25.0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                verticalSpaceLarge,
-                Column(
-                  children: [
-                    const Text(
-                      'Hello, STACKED!',
-                      style: TextStyle(
-                        fontSize: 35,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    verticalSpaceMedium,
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.navigateToBuyPage();
-                      },
-                      child: const Text(
-                        "Buy Bitcoin",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.navigateToPreviewPage();
-                      },
-                      child: const Text(
-                        "Preview",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.navigateToConfirmationPage();
-                      },
-                      child: const Text(
-                        "Confirmation",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: [
-                //     MaterialButton(
-                //       color: kcDarkGreyColor,
-                //       onPressed: viewModel.showDialog,
-                //       child: const Text(
-                //         'Show Dialog',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     ),
-                //     MaterialButton(
-                //       color: kcDarkGreyColor,
-                //       onPressed: viewModel.showBottomSheet,
-                //       child: const Text(
-                //         'Show Bottom Sheet',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // )
-              ],
-            ),
-          ),
+          padding: EdgeInsets.symmetric(horizontal: 25.0),
+          child: BitcoinPriceStream()
         ),
       ),
     );
@@ -104,3 +29,18 @@ class HomeView extends StackedView<HomeViewModel> {
   ) =>
       HomeViewModel();
 }
+// Center(
+//             child: viewModel.isBusy
+//                 ? const CircularProgressIndicator()
+//                 : ListView.builder(
+//                     itemCount: viewModel.data?.length,
+//                     itemBuilder: (context, index) {
+//                       final price = viewModel.data?[index];
+//                       return Card(
+//                         child: ListTile(
+//                           title: Text(price!.usd.toString()),
+//                         ),
+//                       );
+//                     },
+//                   ),
+//           ),

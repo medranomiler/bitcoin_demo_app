@@ -5,16 +5,16 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i5;
-import 'package:flutter/material.dart';
-import 'package:bitcoin_demo_app/ui/views/home/home_view.dart' as _i2;
 import 'package:bitcoin_demo_app/ui/views/buy/buy_view.dart' as _i4;
-import 'package:bitcoin_demo_app/ui/views/preview/preview_view.dart' as _i7;
 import 'package:bitcoin_demo_app/ui/views/confirmation/confirmation_view.dart'
-    as _i8;
+    as _i6;
+import 'package:bitcoin_demo_app/ui/views/home/home_view.dart' as _i2;
+import 'package:bitcoin_demo_app/ui/views/preview/preview_view.dart' as _i5;
 import 'package:bitcoin_demo_app/ui/views/startup/startup_view.dart' as _i3;
+import 'package:flutter/material.dart' as _i7;
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i6;
+import 'package:stacked_services/stacked_services.dart' as _i8;
 
 class Routes {
   static const homeView = '/home-view';
@@ -32,7 +32,7 @@ class Routes {
     startupView,
     buyView,
     previewView,
-    confirmationView
+    confirmationView,
   };
 }
 
@@ -52,42 +52,42 @@ class StackedRouter extends _i1.RouterBase {
     ),
     _i1.RouteDef(
       Routes.previewView,
-      page: _i7.PreviewView,
+      page: _i5.PreviewView,
     ),
     _i1.RouteDef(
       Routes.confirmationView,
-      page: _i8.ConfirmationView,
+      page: _i6.ConfirmationView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.BuyView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
+      return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.BuyView(),
         settings: data,
       );
     },
-    _i7.PreviewView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i7.PreviewView(),
+    _i5.PreviewView: (data) {
+      return _i7.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i5.PreviewView(),
         settings: data,
       );
     },
-    _i8.ConfirmationView: (data) {
-      return _i5.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i8.ConfirmationView(),
+    _i6.ConfirmationView: (data) {
+      return _i7.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i6.ConfirmationView(),
         settings: data,
       );
     },
@@ -100,7 +100,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i6.NavigationService {
+extension NavigatorStateExtension on _i8.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -157,7 +157,7 @@ extension NavigatorStateExtension on _i6.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateConfirmationView([
+  Future<dynamic> navigateToConfirmationView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
