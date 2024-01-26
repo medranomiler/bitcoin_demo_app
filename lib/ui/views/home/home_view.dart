@@ -1,7 +1,6 @@
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price/bitcoin_price_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-
 import 'home_viewmodel.dart';
 
 class HomeView extends StackedView<HomeViewModel> {
