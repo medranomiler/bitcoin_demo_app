@@ -1,9 +1,7 @@
-// Model
-class BitcoinPrice{
+class BitcoinPrice {
   final int usd;
 
-
-BitcoinPrice({
-  required this.usd,
-});
+  BitcoinPrice({
+    required this.usd,
+  });
 }
