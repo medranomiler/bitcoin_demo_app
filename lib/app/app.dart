@@ -8,6 +8,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:bitcoin_demo_app/ui/views/buy/buy_view.dart';
 import 'package:bitcoin_demo_app/ui/views/preview/preview_view.dart';
 import 'package:bitcoin_demo_app/ui/views/confirmation/confirmation_view.dart';
+import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
 // @stacked-import
 
 @StackedApp(
@@ -32,7 +33,8 @@ import 'package:bitcoin_demo_app/ui/views/confirmation/confirmation_view.dart';
   ],
   dialogs: [
     StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
+    StackedDialog(classType: ErrorDialog),
+// @stacked-dialog
   ],
 )
 class App {}

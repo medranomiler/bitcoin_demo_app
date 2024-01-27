@@ -8,7 +8,13 @@ class BitcoinPriceStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BitcoinPriceStreamModel>.reactive(
       builder: (context, model, child) => Center(
-        child: Text(model.data.toString()),
+        child: Text(
+          "\$${model.data.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}",
+          style: const TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
       ),
       viewModelBuilder: () => BitcoinPriceStreamModel(),
     );

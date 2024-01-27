@@ -74,14 +74,19 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i4.BuyView: (data) {
+      final args = data.getArgs<BuyViewArguments>(
+        orElse: () => const BuyViewArguments(),
+      );
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.BuyView(),
+        builder: (context) => _i4.BuyView(key: args.key),
         settings: data,
       );
     },
     _i5.PreviewView: (data) {
+      final args = data.getArgs<PreviewViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i5.PreviewView(),
+        builder: (context) =>
+            _i5.PreviewView(key: args.key, result: args.result),
         settings: data,
       );
     },
@@ -98,6 +103,55 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class BuyViewArguments {
+  const BuyViewArguments({this.key});
+
+  final _i7.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant BuyViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class PreviewViewArguments {
+  const PreviewViewArguments({
+    this.key,
+    required this.result,
+  });
+
+  final _i7.Key? key;
+
+  final int result;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "result": "$result"}';
+  }
+
+  @override
+  bool operator ==(covariant PreviewViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.result == result;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ result.hashCode;
+  }
 }
 
 extension NavigatorStateExtension on _i8.NavigationService {
@@ -129,28 +183,33 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToBuyView([
+  Future<dynamic> navigateToBuyView({
+    _i7.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.buyView,
+        arguments: BuyViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> navigateToPreviewView([
+  Future<dynamic> navigateToPreviewView({
+    _i7.Key? key,
+    required int result,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.previewView,
+        arguments: PreviewViewArguments(key: key, result: result),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -199,28 +258,33 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithBuyView([
+  Future<dynamic> replaceWithBuyView({
+    _i7.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.buyView,
+        arguments: BuyViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
         transition: transition);
   }
 
-  Future<dynamic> replaceWithPreviewView([
+  Future<dynamic> replaceWithPreviewView({
+    _i7.Key? key,
+    required int result,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.previewView,
+        arguments: PreviewViewArguments(key: key, result: result),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
