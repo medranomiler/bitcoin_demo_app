@@ -1,9 +1,10 @@
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-class BitcoinLineChartViewModel extends StreamViewModel<List> {
+class BitcoinChartViewModel extends StreamViewModel<List> {
   final _apiService = locator<ApiService>();
   bool isFirstRun = true;
 
@@ -73,4 +74,23 @@ class BitcoinLineChartViewModel extends StreamViewModel<List> {
       }
     }
   }
+   Widget calculatePercentChange(List<FlSpot> data) {
+    double currentValue = data.first.y;
+    double prevValue = data.last.y;
+
+    double percentChange = ((currentValue - prevValue) / prevValue * 100);
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 0, 0, 12),
+      child: Text(
+        "${percentChange > 0 ? "+${percentChange.toStringAsFixed(2)}" : percentChange.toStringAsFixed(2)}%",
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: percentChange > 0 ? Colors.green : Colors.red,
+        ),
+      ),
+    );
+  }
+
 }
