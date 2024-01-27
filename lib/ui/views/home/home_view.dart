@@ -26,8 +26,8 @@ class HomeView extends StackedView<HomeViewModel> {
                 "BITCOIN PRICE",
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              BitcoinPriceStream(),
-              BitcoinLineChartView(),
+              const BitcoinPriceStream(),
+              const BitcoinChartView(),
               Expanded(
                 child: SizedBox(
                   height: double.infinity,
