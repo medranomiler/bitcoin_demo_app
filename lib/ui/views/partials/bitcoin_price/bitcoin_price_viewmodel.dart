@@ -14,13 +14,17 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
         isFirstRun = false;
         final response = await _apiService.getBitcoinPrice();
         data = response;
-        yield response + 2;
+        yield response;
       } else {
         await Future.delayed(const Duration(seconds: 20));
         final response = await _apiService.getBitcoinPrice();
         data = response;
-        yield response + 1; 
+        yield response; 
       }
     }
+  }
+
+  formatPrice(price){
+    return "\$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
   }
 }
