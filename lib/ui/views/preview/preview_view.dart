@@ -1,4 +1,4 @@
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price/bitcoin_price_view.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/usd_bitcoin_amount/usd_bitcoin_amount_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -22,12 +22,12 @@ class PreviewView extends StackedView<PreviewViewModel> {
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(children: [
-
+            USDBitcoinAmountView(purchaseAmount: result),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Purchase amount", style: textStyle),
-                Text("\$${viewModel.result.toString()}.00", style: textStyle)
+                Text(viewModel.formatPurchaseAmount(viewModel.result), style: textStyle)
               ],
             ),
             Row(
