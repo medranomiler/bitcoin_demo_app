@@ -43,11 +43,12 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
     double progress = countdown / 5;
 
     return SizedBox(
-        width: 16,
-        height: 16,
+        width: 10,
+        height: 10,
         child: CircularProgressIndicator(
           value: progress,
           color: Colors.black,
+          strokeWidth: 10,
         ));
   }
 }
