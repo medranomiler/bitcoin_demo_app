@@ -17,6 +17,7 @@ class BuyView extends StackedView<BuyViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(

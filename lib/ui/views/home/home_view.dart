@@ -14,6 +14,7 @@ class HomeView extends StackedView<HomeViewModel> {
     Widget? child,
   ) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white,),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -62,18 +63,3 @@ class HomeView extends StackedView<HomeViewModel> {
   ) =>
       HomeViewModel();
 }
-// Center(
-//             child: viewModel.isBusy
-//                 ? const CircularProgressIndicator()
-//                 : ListView.builder(
-//                     itemCount: viewModel.data?.length,
-//                     itemBuilder: (context, index) {
-//                       final price = viewModel.data?[index];
-//                       return Card(
-//                         child: ListTile(
-//                           title: Text(price!.usd.toString()),
-//                         ),
-//                       );
-//                     },
-//                   ),
-//           ),

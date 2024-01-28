@@ -32,4 +32,8 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int>{
    return '${bitcoinAmount.toStringAsFixed(8)} BTC';
   }
 
+  formatPrice(price){
+    return "1 BTC = \$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
+  }
+
 }
