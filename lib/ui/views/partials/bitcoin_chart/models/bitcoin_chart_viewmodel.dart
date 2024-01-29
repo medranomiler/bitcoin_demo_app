@@ -6,75 +6,83 @@ import 'package:stacked/stacked.dart';
 
 class BitcoinChartViewModel extends StreamViewModel<List> {
   final _apiService = locator<ApiService>();
-  bool isFirstRun = true;
+  bool _delayPriceUpdates = false;
 
   @override
-  Stream<List> get stream => getFormattedDataArray();
+  Stream<List> get stream =>
+      _delayPriceUpdates ? getDelayedDataArray() : getDataArray();
 
-  Stream<List> getFormattedDataArray() async* {
+  swapSources() {
+    _delayPriceUpdates = !_delayPriceUpdates;
+    notifySourceChanged();
+  }
+
+  Stream<List> getDataArray() async* {
     setBusy(true);
     while (true) {
-      if (isFirstRun) {
-        isFirstRun = false;
-        final response = await _apiService.getBitcoinHistoricalPrices();
-        List<FlSpot> formattedDataAll = response
-            .where((e) => e.usd > 1)
-            .toList()
-            .map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble()))
-            .toList();
-        List formattedDataArray = [
-          {
-            'name': "1W",
-            'data': formattedDataAll.sublist(0, 168),
-          },
-          {
-            'name': "1M",
-            'data': formattedDataAll.sublist(0, 720),
-          },
-          {
-            'name': "1YR",
-            'data': formattedDataAll.sublist(0, 8760),
-          },
-          {
-            'name': "ALL",
-            'data': formattedDataAll,
-          },
-        ];
-        setBusy(false);
-        yield formattedDataArray;
-      } else {
-
-        await Future.delayed(const Duration(minutes: 60));
-        final response = await _apiService.getBitcoinHistoricalPrices();
-        List<FlSpot> formattedDataAll = response
-            .where((e) => e.usd > 1)
-            .toList()
-            .map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble()))
-            .toList();
-        List formattedDataArray = [
-          {
-            'name': "1W",
-            'data': formattedDataAll.sublist(0, 168),
-          },
-          {
-            'name': "1M",
-            'data': formattedDataAll.sublist(0, 720),
-          },
-          {
-            'name': "1YR",
-            'data': formattedDataAll.sublist(0, 8760),
-          },
-          {
-            'name': "ALL",
-            'data': formattedDataAll,
-          },
-        ];
-
-        yield formattedDataArray;
-      }
+      final response = await _apiService.getBitcoinHistoricalPrices();
+      List<FlSpot> formattedDataAll = response
+          .where((e) => e.usd > 1)
+          .toList()
+          .map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble()))
+          .toList();
+      List formattedDataArray = [
+        {
+          'name': "1W",
+          'data': formattedDataAll.sublist(0, 168),
+        },
+        {
+          'name': "1M",
+          'data': formattedDataAll.sublist(0, 720),
+        },
+        {
+          'name': "1YR",
+          'data': formattedDataAll.sublist(0, 8760),
+        },
+        {
+          'name': "ALL",
+          'data': formattedDataAll,
+        },
+      ];
+      setBusy(false);
+      yield formattedDataArray;
     }
   }
-   Widget calculatePercentChange(List<FlSpot> data) {
+
+  Stream<List> getDelayedDataArray() async* {
+    setBusy(true);
+    while (true) {
+      await Future.delayed(const Duration(minutes: 60));
+      final response = await _apiService.getBitcoinHistoricalPrices();
+      List<FlSpot> formattedDataAll = response
+          .where((e) => e.usd > 1)
+          .toList()
+          .map((e) => FlSpot(e.time.toDouble(), e.usd.toDouble()))
+          .toList();
+      List formattedDataArray = [
+        {
+          'name': "1W",
+          'data': formattedDataAll.sublist(0, 168),
+        },
+        {
+          'name': "1M",
+          'data': formattedDataAll.sublist(0, 720),
+        },
+        {
+          'name': "1YR",
+          'data': formattedDataAll.sublist(0, 8760),
+        },
+        {
+          'name': "ALL",
+          'data': formattedDataAll,
+        },
+      ];
+
+      yield formattedDataArray;
+    }
+  }
+
+  Widget calculatePercentChange(List<FlSpot> data) {
     double currentValue = data.first.y;
     double prevValue = data.last.y;
 
@@ -92,5 +100,4 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
       ),
     );
   }
-
 }

@@ -10,24 +10,29 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
   final _apiService = locator<ApiService>();
   final _sharedDataService = locator<SharedDataService>();
 
-  bool isFirstRun = true;
+  bool _delayPriceUpdates = false;
 
   @override
-  Stream<int> get stream => getBitcoinPrice();
+  Stream<int> get stream => _delayPriceUpdates? getDelayedBitcoinPrice() : getBitcoinPrice();
+
+  swapSources(){
+    _delayPriceUpdates = !_delayPriceUpdates;
+    notifySourceChanged();
+  }
 
   Stream<int> getBitcoinPrice() async* {
     while (true) {
-      if (isFirstRun) {
-        isFirstRun = false;
-        final response = await _apiService.getBitcoinPrice();
-        data = response;
-        yield response;
-      } else {
-        await Future.delayed(const Duration(seconds: 10));
-        final response = await _apiService.getBitcoinPrice();
-        data = response;
-        yield response;
-      }
+      final response = await _apiService.getBitcoinPrice();
+      yield response;
+      swapSources();
+    }
+  }
+
+  Stream<int> getDelayedBitcoinPrice() async* {
+    while (true) {
+      await Future.delayed(const Duration(seconds: 10));
+      final response = await _apiService.getBitcoinPrice();
+      yield response;
     }
   }
 
@@ -42,13 +47,17 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
     return "1 BTC = \$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
   }
 
+
+
+
+
   @override
   void dispose() {
     super.dispose();
   }
 
   @override
-  void onCancel(){
+  void onCancel() {
     debugPrint("stream cancelled");
   }
 }
