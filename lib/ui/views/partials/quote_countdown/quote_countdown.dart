@@ -23,12 +23,12 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
       }
       if (countdown == 0) {
         setState(() {
-          countdown = 5;
+          countdown = 10;
         });
       }
     });
 
-    countdown = 5;
+    countdown = 10;
   }
 
   @override
@@ -40,15 +40,24 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    double progress = countdown / 5;
+    double progress = countdown / 10;
 
     return SizedBox(
-        width: 10,
-        height: 10,
+      width: 20,
+      height: 20,
+      child: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(width: 6, color: Colors.black)),
         child: CircularProgressIndicator(
           value: progress,
-          color: Colors.black,
-          strokeWidth: 10,
-        ));
+          backgroundColor: Colors.black,
+          color: Colors.white,
+          strokeWidth: 8,
+        ),
+      ),
+    );
   }
 }

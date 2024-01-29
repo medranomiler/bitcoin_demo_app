@@ -24,8 +24,9 @@ class PreviewViewModel extends BaseViewModel {
     return "\$${total.toString()}";
   }
 
-  navigateToConfirmPage(){
-    _navigationService.navigateToConfirmationView();
+  navigateToConfirmPage(purchaseAmount){
+    _navigationService.replaceWithConfirmationView(
+      purchaseAmount: purchaseAmount,
+    );
   }
-
 }

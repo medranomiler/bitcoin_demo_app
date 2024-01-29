@@ -1,4 +1,5 @@
 import 'package:bitcoin_demo_app/ui/views/partials/usd_bitcoin_amount/usd_bitcoin_amount_view.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/usd_bitcoin_amount/usd_bitcoin_amount_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -57,7 +58,7 @@ class PreviewView extends StackedView<PreviewViewModel> {
               padding: const EdgeInsets.symmetric(vertical: 24),
               child: MaterialButton(
                 onPressed: () {
-                  viewModel.navigateToConfirmPage();
+                  viewModel.navigateToConfirmPage(result);
                 },
                 color: Colors.black,
                 child: const Text(
