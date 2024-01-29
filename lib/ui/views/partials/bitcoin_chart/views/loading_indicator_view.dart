@@ -1,5 +1,5 @@
 import 'package:bitcoin_demo_app/ui/common/ui_helpers.dart';
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/loading_indicator_viewmodel.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/models/loading_indicator_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

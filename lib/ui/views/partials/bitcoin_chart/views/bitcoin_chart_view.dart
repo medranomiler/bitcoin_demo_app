@@ -1,7 +1,7 @@
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/bitcoin_chart_viewmodel.dart';
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/bitcoin_line_chart_view.dart';
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/loading_indicator_view.dart';
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/time_period_buttons_view.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/models/bitcoin_chart_viewmodel.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/views/bitcoin_line_chart_view.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/views/loading_indicator_view.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/views/time_period_buttons_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
