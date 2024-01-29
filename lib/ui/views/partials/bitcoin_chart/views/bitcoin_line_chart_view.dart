@@ -1,4 +1,4 @@
-import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/bitcoin_line_chart_viewmodel.dart';
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/models/bitcoin_line_chart_viewmodel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
