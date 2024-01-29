@@ -91,8 +91,11 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i6.ConfirmationView: (data) {
+      final args = data.getArgs<ConfirmationViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.ConfirmationView(),
+        builder: (context) => _i6.ConfirmationView(
+            key: args.key,
+            purchaseAmount: args.purchaseAmount),
         settings: data,
       );
     },
@@ -151,6 +154,35 @@ class PreviewViewArguments {
   @override
   int get hashCode {
     return key.hashCode ^ result.hashCode;
+  }
+}
+
+class ConfirmationViewArguments {
+  const ConfirmationViewArguments({
+    this.key,
+    required this.purchaseAmount,
+  });
+
+  final _i7.Key? key;
+
+
+  final dynamic purchaseAmount;
+
+  @override
+  String toString() {
+    return '{"key": "$key",  "purchaseAmount": "$purchaseAmount"}';
+  }
+
+  @override
+  bool operator ==(covariant ConfirmationViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.purchaseAmount == purchaseAmount;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ purchaseAmount.hashCode;
   }
 }
 
@@ -216,14 +248,19 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToConfirmationView([
+  Future<dynamic> navigateToConfirmationView({
+    _i7.Key? key,
+    required dynamic purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.confirmationView,
+        arguments: ConfirmationViewArguments(
+            key: key,
+            purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -291,14 +328,19 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithConfirmationView([
+  Future<dynamic> replaceWithConfirmationView({
+    _i7.Key? key,
+    required dynamic purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.confirmationView,
+        arguments: ConfirmationViewArguments(
+            key: key,
+            purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
