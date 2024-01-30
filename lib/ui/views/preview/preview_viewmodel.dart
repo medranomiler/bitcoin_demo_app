@@ -5,28 +5,42 @@ import 'package:stacked_services/stacked_services.dart';
 
 class PreviewViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
-  
-  final int result;
-  PreviewViewModel(this.result);
-  
+  final _bottomSheetService = locator<BottomSheetService>();
 
-    formatPurchaseAmount(purchaseAmount){
-      return "\$${purchaseAmount.toString()}.00";
-    }
+  final int purchaseAmount;
+  PreviewViewModel(this.purchaseAmount);
 
-    calculateFees(purchaseAmount){
+  formatPurchaseAmount(purchaseAmount) {
+    return "\$${purchaseAmount.toString()}.00";
+  }
+
+  calculateFees(purchaseAmount) {
     double fees = purchaseAmount / 100;
     return "\$${fees.toString()}";
   }
 
-    calculateTotal(purchaseAmount){
+  calculateTotal(purchaseAmount) {
     double total = purchaseAmount + (purchaseAmount / 100);
     return "\$${total.toString()}";
   }
 
-  navigateToConfirmPage(purchaseAmount){
-    _navigationService.replaceWithConfirmationView(
-      purchaseAmount: purchaseAmount,
-    );
+  goBack() {
+    _navigationService.replaceWithBuyView();
+  }
+
+  navigateToConfirmPage(purchaseAmount) async {
+    var response = await _bottomSheetService.showBottomSheet(
+        title: "Confirm Purchase",
+        description: "Click confirm if you want to submit your buy order.",
+        confirmButtonTitle: "Confirm",
+        cancelButtonTitle: "Cancel",
+        
+        );
+
+    if (response!.confirmed) {
+      _navigationService.replaceWithConfirmationView(
+        purchaseAmount: purchaseAmount,
+      );
+    }
   }
 }

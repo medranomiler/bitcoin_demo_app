@@ -6,10 +6,10 @@ import 'package:stacked_services/stacked_services.dart';
 class BuyViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
 
-  navigateToPreviewPage(arg) {
-    _navigationService.navigateToPreviewView(result: arg);
+  navigateToPreviewPage(purchaseAmount) {
+    _navigationService.replaceWithPreviewView(purchaseAmount: purchaseAmount);
   }
   goBack(){
-    _navigationService.back();
+    _navigationService.replaceWithHomeView();
   }
 }

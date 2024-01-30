@@ -86,7 +86,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<PreviewViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
         builder: (context) =>
-            _i5.PreviewView(key: args.key, result: args.result),
+            _i5.PreviewView(key: args.key, purchaseAmount: args.purchaseAmount),
         settings: data,
       );
     },
@@ -94,8 +94,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ConfirmationViewArguments>(nullOk: false);
       return _i7.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.ConfirmationView(
-            key: args.key,
-            purchaseAmount: args.purchaseAmount),
+            key: args.key, purchaseAmount: args.purchaseAmount),
         settings: data,
       );
     },
@@ -133,27 +132,27 @@ class BuyViewArguments {
 class PreviewViewArguments {
   const PreviewViewArguments({
     this.key,
-    required this.result,
+    required this.purchaseAmount,
   });
 
   final _i7.Key? key;
 
-  final int result;
+  final int purchaseAmount;
 
   @override
   String toString() {
-    return '{"key": "$key", "result": "$result"}';
+    return '{"key": "$key", "purchaseAmount": "$purchaseAmount"}';
   }
 
   @override
   bool operator ==(covariant PreviewViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.result == result;
+    return other.key == key && other.purchaseAmount == purchaseAmount;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ result.hashCode;
+    return key.hashCode ^ purchaseAmount.hashCode;
   }
 }
 
@@ -165,19 +164,17 @@ class ConfirmationViewArguments {
 
   final _i7.Key? key;
 
-
-  final dynamic purchaseAmount;
+  final int purchaseAmount;
 
   @override
   String toString() {
-    return '{"key": "$key",  "purchaseAmount": "$purchaseAmount"}';
+    return '{"key": "$key", "purchaseAmount": "$purchaseAmount"}';
   }
 
   @override
   bool operator ==(covariant ConfirmationViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key &&
-        other.purchaseAmount == purchaseAmount;
+    return other.key == key && other.purchaseAmount == purchaseAmount;
   }
 
   @override
@@ -233,7 +230,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> navigateToPreviewView({
     _i7.Key? key,
-    required int result,
+    required int purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -241,7 +238,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.previewView,
-        arguments: PreviewViewArguments(key: key, result: result),
+        arguments:
+            PreviewViewArguments(key: key, purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -250,7 +248,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> navigateToConfirmationView({
     _i7.Key? key,
-    required dynamic purchaseAmount,
+    required int purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -258,9 +256,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return navigateTo<dynamic>(Routes.confirmationView,
-        arguments: ConfirmationViewArguments(
-            key: key,
-            purchaseAmount: purchaseAmount),
+        arguments:
+            ConfirmationViewArguments(key: key, purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -313,7 +310,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> replaceWithPreviewView({
     _i7.Key? key,
-    required int result,
+    required int purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -321,7 +318,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.previewView,
-        arguments: PreviewViewArguments(key: key, result: result),
+        arguments:
+            PreviewViewArguments(key: key, purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -330,7 +328,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
 
   Future<dynamic> replaceWithConfirmationView({
     _i7.Key? key,
-    required dynamic purchaseAmount,
+    required int purchaseAmount,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -338,9 +336,8 @@ extension NavigatorStateExtension on _i8.NavigationService {
         transition,
   }) async {
     return replaceWith<dynamic>(Routes.confirmationView,
-        arguments: ConfirmationViewArguments(
-            key: key,
-            purchaseAmount: purchaseAmount),
+        arguments:
+            ConfirmationViewArguments(key: key, purchaseAmount: purchaseAmount),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
