@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/app/app.router.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
@@ -17,9 +17,10 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
   bool _delayPriceUpdates = false;
 
   @override
-  Stream<int> get stream => _delayPriceUpdates? getDelayedBitcoinPrice() : getBitcoinPrice();
+  Stream<int> get stream =>
+      _delayPriceUpdates ? getDelayedBitcoinPrice() : getBitcoinPrice();
 
-  swapSources(){
+  swapSources() {
     _delayPriceUpdates = !_delayPriceUpdates;
     notifySourceChanged();
   }
@@ -63,11 +64,14 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
 
   @override
   void onError(error) async {
-    var response = await _dialogService.showDialog(title: "Error", description: 'Error obtaining quote data.', buttonTitle: "try again", );
-    if(response!.confirmed){
+    var response = await _dialogService.showCustomDialog(
+      variant: DialogType.error,
+      title: "Error",
+      description: 'Error obtaining bitcoin price data.',
+      mainButtonTitle: "Try Again",
+    );
+    if (response!.confirmed) {
       _navigationService.replaceWithBuyView();
     }
   }
 }
-
-

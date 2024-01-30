@@ -41,7 +41,7 @@ class ErrorDialog extends StackedView<ErrorDialogModel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        request.title ?? 'Hello Stacked Dialog!!',
+                        request.title ?? 'Error',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w900,
@@ -66,13 +66,13 @@ class ErrorDialog extends StackedView<ErrorDialogModel> {
                   width: _graphicSize,
                   height: _graphicSize,
                   decoration: const BoxDecoration(
-                    color: Color(0xFFF6E7B0),
+                    color: Color.fromARGB(255, 246, 176, 176),
                     borderRadius: BorderRadius.all(
                       Radius.circular(_graphicSize / 2),
                     ),
                   ),
                   alignment: Alignment.center,
-                  child: const Text('⭐️', style: TextStyle(fontSize: 30)),
+                  child: const Text('❗️', style: TextStyle(fontSize: 30)),
                 )
               ],
             ),
@@ -87,9 +87,9 @@ class ErrorDialog extends StackedView<ErrorDialogModel> {
                   color: Colors.black,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Text(
-                  'Got it',
-                  style: TextStyle(
+                child: Text(
+                  request.mainButtonTitle ?? 'Got it',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,

@@ -1,3 +1,4 @@
+import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/app/app.router.dart';
 import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
@@ -40,7 +41,8 @@ class PreviewViewModel extends BaseViewModel {
     );
 
     if (!response!.confirmed) {
-      return _dialogService.showDialog(
+      return _dialogService.showCustomDialog(
+        variant: DialogType.infoAlert,
         title: "Order Cancelled",
         description: "Your bitcoin purchase order was cancelled.",
       );
