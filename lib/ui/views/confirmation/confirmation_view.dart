@@ -23,35 +23,39 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: viewModel.isBusy ? Center(child: LoadingIndicatorView()) :  SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center ,
-            children: [
-            const Text("You stacked\nsome sats!" , textAlign: TextAlign.center, style: textStyle1),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [ 
-                Text("\$${purchaseAmount.toString()}", style: textStyle0),
-                const Icon(Icons.arrow_right_alt_sharp),
-                Text(viewModel.formatBTC(viewModel.sharedData),
-                    style: textStyle0),
-              ],
-            ),
-            MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.navigateToHomePage();
-                      },
-                      child: const Text(
-                        "Done",
-                        style: TextStyle(color: Colors.white),
+      body: viewModel.isBusy
+          ? const Center(child: LoadingIndicatorView())
+          : SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("You stacked\nsome sats!",
+                          textAlign: TextAlign.center, style: textStyle1),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("\$${purchaseAmount.toString()}",
+                              style: textStyle0),
+                          const Icon(Icons.arrow_right_alt_sharp),
+                          Text(viewModel.formatBTC(viewModel.sharedData),
+                              style: textStyle0),
+                        ],
                       ),
-                    ),
-          ]),
-        ),
-      ),
+                      MaterialButton(
+                        color: Colors.black,
+                        onPressed: () {
+                          viewModel.navigateToHomePage();
+                        },
+                        child: const Text(
+                          "Done",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ]),
+              ),
+            ),
     );
   }
 

@@ -22,10 +22,6 @@ class HomeView extends StackedView<HomeViewModel> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text(
-                "BITCOIN PRICE",
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
               const BitcoinPriceStream(),
               const BitcoinChartView(),
               Expanded(
