@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:bitcoin_demo_app/app/app.locator.dart';
+import 'package:bitcoin_demo_app/app/app.router.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:bitcoin_demo_app/services/shared_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class USDBitcoinAmountViewModel extends StreamViewModel<int> {
   final _apiService = locator<ApiService>();
   final _sharedDataService = locator<SharedDataService>();
+  final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   bool _delayPriceUpdates = false;
 
@@ -56,4 +60,14 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
   void onCancel() {
     debugPrint("stream cancelled ${DateTime.now()}");
   }
+
+  @override
+  void onError(error) async {
+    var response = await _dialogService.showDialog(title: "Error", description: 'Error obtaining quote data.', buttonTitle: "try again", );
+    if(response!.confirmed){
+      _navigationService.replaceWithBuyView();
+    }
+  }
 }
+
+

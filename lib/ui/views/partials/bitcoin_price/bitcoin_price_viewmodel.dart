@@ -1,19 +1,25 @@
 import 'dart:async';
 
 import 'package:bitcoin_demo_app/app/app.locator.dart';
+import 'package:bitcoin_demo_app/app/app.router.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
+import 'package:bitcoin_demo_app/ui/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class BitcoinPriceStreamModel extends StreamViewModel<int> {
   final _apiService = locator<ApiService>();
+  final _navigationService = locator<NavigationService>();
+  final _dialogService = locator<DialogService>();
 
   bool _delayPriceUpdates = false;
 
   @override
-  Stream<int> get stream => _delayPriceUpdates? getDelayedBitcoinPrice() : getBitcoinPrice();
+  Stream<int> get stream =>
+      _delayPriceUpdates ? getDelayedBitcoinPrice() : getBitcoinPrice();
 
-  swapSources(){
+  swapSources() {
     _delayPriceUpdates = !_delayPriceUpdates;
     notifySourceChanged();
   }
@@ -35,7 +41,11 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
     }
   }
 
-    @override
+  formatPrice(price) {
+    return "\$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
+  }
+
+  @override
   void dispose() {
     super.dispose();
   }
@@ -45,7 +55,19 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
     debugPrint("stream cancelled ${DateTime.now()}");
   }
 
-  formatPrice(price){
-    return "\$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
+  @override
+  void onError(error) async {
+    var response = await _dialogService.showDialog(
+      title: "Error",
+      description: 'Error obtaining bitcoin price data.',
+      buttonTitle: "try again",
+    );
+    if (response!.confirmed &&
+        _navigationService.currentRoute != '/home-view') {
+      debugPrint("replaced with homeview");
+      _navigationService.replaceWithHomeView();
+    } else {
+      _navigationService.replaceWithStartupView();
+    }
   }
 }
