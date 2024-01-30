@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'dart:async';
 
 class QuoteProgressIndicator extends StatefulWidget {
-  const QuoteProgressIndicator({super.key});
+  const QuoteProgressIndicator({Key? key}) : super(key: key);
 
   @override
   State<QuoteProgressIndicator> createState() => _QuoteProgressIndicatorState();
@@ -15,20 +15,19 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
   @override
   void initState() {
     super.initState();
+    countdown = 0; // Start at 0
+
     timer = Timer.periodic(const Duration(seconds: 1), (Timer timer) {
-      if (countdown > 0) {
+      if (countdown < 9) {
         setState(() {
-          countdown--;
+          countdown++;
         });
-      }
-      if (countdown == 0) {
+      } else {
         setState(() {
-          countdown = 10;
+          countdown = 0;
         });
       }
     });
-
-    countdown = 10;
   }
 
   @override
@@ -42,20 +41,23 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
   Widget build(BuildContext context) {
     double progress = countdown / 10;
 
-    return SizedBox(
-      width: 20,
-      height: 20,
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 6, color: Colors.black)),
-        child: CircularProgressIndicator(
-          value: progress,
-          backgroundColor: Colors.black,
-          color: Colors.white,
-          strokeWidth: 8,
+    return Padding(
+      padding: EdgeInsets.only(right: 8),
+      child: SizedBox(
+        width: 16,
+        height: 16,
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(width: 4, color: Colors.black)),
+          child: CircularProgressIndicator(
+            value: progress,
+            backgroundColor: Colors.white,
+            color: Colors.black,
+            strokeWidth: 7,
+          ),
         ),
       ),
     );

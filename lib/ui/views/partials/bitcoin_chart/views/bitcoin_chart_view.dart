@@ -24,9 +24,8 @@ class _BitcoinChartViewState extends State<BitcoinChartView> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BitcoinChartViewModel>.reactive(
-      builder: (context, model, child) => model.isBusy
-          ? const LoadingIndicatorView()
-          : Column(
+      builder: (context, model, child) => model.data != null
+          ? Column(
               children: [
                 model.calculatePercentChange(model.data![currentIndex]['data']),
                 BitcoinLineChartView(data: model.data![currentIndex]['data']),
@@ -40,7 +39,7 @@ class _BitcoinChartViewState extends State<BitcoinChartView> {
                   },
                 ),
               ],
-            ),
+            ) : const LoadingIndicatorView(),
       viewModelBuilder: () => BitcoinChartViewModel(),
     );
   }

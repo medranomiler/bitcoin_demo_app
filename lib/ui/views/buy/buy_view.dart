@@ -9,7 +9,7 @@ class BuyView extends StackedView<BuyViewModel> {
 
   TextEditingController textFieldController = TextEditingController();
   static const TextStyle textStyle =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.w900, color: Colors.black);
+      TextStyle(fontSize: 48, fontWeight: FontWeight.w900, color: Colors.black);
   @override
   Widget builder(
     BuildContext context,
@@ -17,11 +17,10 @@ class BuyView extends StackedView<BuyViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).colorScheme.background,),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
           child: Column(
             children: [
               const Text(
@@ -49,13 +48,40 @@ class BuyView extends StackedView<BuyViewModel> {
                   counterText: "",
                 ),
               ),
-              const Text(
-                "in Bitcoin",
-                textAlign: TextAlign.start,
-                style: textStyle,
+              const SizedBox(
+                width: double.infinity,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "in Bitcoin",
+                      style: textStyle,
+                    ),
+                  ],
+                ),
+              ),
+              const Padding(
+                padding: EdgeInsetsDirectional.symmetric(vertical: 20),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("Checking Account ****0555"),
+                          Text("Limit of \$1,0000")
+                        ],
+                      ),
+                      Icon(Icons.keyboard_arrow_down),
+                    ],
+                  ),
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -76,7 +102,7 @@ class BuyView extends StackedView<BuyViewModel> {
                             int.parse(textFieldController.text));
                       },
                       child: const Text(
-                        "Enter",
+                        "Preview Buy",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
