@@ -24,10 +24,6 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
     notifySourceChanged();
   }
 
-  handleError(error)  {
-     _dialogService.showDialog(title: "Error", description: error);
-  }
-
   Stream<int> getBitcoinPrice() async* {
     while (true) {
       final response = await _apiService.getBitcoinPrice();
