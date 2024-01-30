@@ -1,11 +1,14 @@
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/app/app.router.dart';
+import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class PreviewViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   final _bottomSheetService = locator<BottomSheetService>();
+  final _dialogService = locator<DialogService>();
 
   final int purchaseAmount;
   PreviewViewModel(this.purchaseAmount);
@@ -30,17 +33,20 @@ class PreviewViewModel extends BaseViewModel {
 
   navigateToConfirmPage(purchaseAmount) async {
     var response = await _bottomSheetService.showBottomSheet(
-        title: "Confirm Purchase",
-        description: "Click confirm if you want to submit your buy order.",
-        confirmButtonTitle: "Confirm",
-        cancelButtonTitle: "Cancel",
-        
-        );
+      title: "Confirm Purchase",
+      description: "Click the confirm button to submit your bitcoin purchase order.",
+      confirmButtonTitle: "Confirm",
+      cancelButtonTitle: "Cancel",
+    );
 
-    if (response!.confirmed) {
-      _navigationService.replaceWithConfirmationView(
-        purchaseAmount: purchaseAmount,
+    if (!response!.confirmed) {
+      return _dialogService.showDialog(
+        title: "Order Cancelled",
+        description: "Your bitcoin purchase order was cancelled.",
       );
     }
+    _navigationService.replaceWithConfirmationView(
+      purchaseAmount: purchaseAmount,
+    );
   }
 }
