@@ -1,3 +1,4 @@
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/views/loading_indicator_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -21,11 +22,8 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
     Widget? child,
   ) {
     return Scaffold(
-      appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          automaticallyImplyLeading: false),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SafeArea(
+      body: viewModel.isBusy ? Center(child: LoadingIndicatorView()) :  SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
@@ -41,7 +39,16 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
                     style: textStyle0),
               ],
             ),
-            
+            MaterialButton(
+                      color: Colors.black,
+                      onPressed: () {
+                        viewModel.navigateToHomePage();
+                      },
+                      child: const Text(
+                        "Done",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
           ]),
         ),
       ),

@@ -42,20 +42,23 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
   Widget build(BuildContext context) {
     double progress = countdown / 10;
 
-    return SizedBox(
-      width: 20,
-      height: 20,
-      child: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(width: 6, color: Colors.black)),
-        child: CircularProgressIndicator(
-          value: progress,
-          backgroundColor: Colors.black,
-          color: Colors.white,
-          strokeWidth: 8,
+    return Padding(
+      padding: EdgeInsets.only(right: 8),
+      child: SizedBox(
+        width: 16,
+        height: 16,
+        child: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(width: 4, color: Colors.black)),
+          child: CircularProgressIndicator(
+            value: progress,
+            backgroundColor: Colors.white,
+            color: Colors.black,
+            strokeWidth: 7,
+          ),
         ),
       ),
     );

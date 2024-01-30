@@ -47,10 +47,6 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
     return "1 BTC = \$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
   }
 
-
-
-
-
   @override
   void dispose() {
     super.dispose();
@@ -58,6 +54,6 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
 
   @override
   void onCancel() {
-    debugPrint("stream cancelled");
+    debugPrint("stream cancelled ${DateTime.now()}");
   }
 }

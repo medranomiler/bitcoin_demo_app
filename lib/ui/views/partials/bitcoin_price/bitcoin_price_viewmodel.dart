@@ -42,7 +42,7 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
 
   @override
   void onCancel() {
-    debugPrint("stream cancelled");
+    debugPrint("stream cancelled ${DateTime.now()}");
   }
 
   formatPrice(price){

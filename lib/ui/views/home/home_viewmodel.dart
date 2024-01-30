@@ -7,7 +7,7 @@ class HomeViewModel extends BaseViewModel {
   final _navigationService = locator<NavigationService>();
   
   navigateToBuyPage(){
-    _navigationService.navigateToBuyView();
+    _navigationService.replaceWithBuyView();
   }
 
   
