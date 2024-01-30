@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/app/app.router.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
-import 'package:bitcoin_demo_app/ui/views/home/home_view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -57,10 +57,11 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
 
   @override
   void onError(error) async {
-    var response = await _dialogService.showDialog(
+    var response = await _dialogService.showCustomDialog(
+      variant: DialogType.error,
       title: "Error",
       description: 'Error obtaining bitcoin price data.',
-      buttonTitle: "try again",
+      mainButtonTitle: "Try Again",
     );
     if (response!.confirmed &&
         _navigationService.currentRoute != '/home-view') {
