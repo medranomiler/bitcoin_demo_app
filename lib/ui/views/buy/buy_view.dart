@@ -1,3 +1,4 @@
+import 'package:bitcoin_demo_app/ui/common/app_colors.dart';
 import 'package:bitcoin_demo_app/ui/views/buy/buy_view.form.dart';
 import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price/bitcoin_price_view.dart';
 import 'package:flutter/material.dart';
@@ -68,8 +69,8 @@ class BuyView extends StatelessWidget with $BuyView {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Checking Account ****0555"),
-                            Text("Limit of \$1,0000")
+                            Text("Checking Account ****0555", style: TextStyle( color: Colors.black, fontWeight: FontWeight.w500 )),
+                            Text("Limit of \$1,0000", style: TextStyle( color: kcMediumGrey ))
                           ],
                         ),
                         Icon(Icons.keyboard_arrow_down),
@@ -109,7 +110,7 @@ class BuyView extends StatelessWidget with $BuyView {
                 Builder(
                   builder: (context) {
                     if (viewModel.hasPurchaseAmountValidationMessage) {
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
                             content: Text(
