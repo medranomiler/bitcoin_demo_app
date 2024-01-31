@@ -8,14 +8,22 @@ class BitcoinPriceStream extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BitcoinPriceStreamModel>.reactive(
       builder: (context, model, child) => Center(
-        child: Text(
-          model.formatPrice(model.data),
-          style: const TextStyle(
-            fontSize: 40,
-            fontWeight: FontWeight.w900,
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            "BITCOIN PRICE",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-        ),
-      ),
+          Text(
+            model.formatPrice(model.data),
+            style: const TextStyle(
+              fontSize: 40,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ],
+      )),
       viewModelBuilder: () => BitcoinPriceStreamModel(),
     );
   }

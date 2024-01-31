@@ -9,11 +9,11 @@ class ConfirmationViewModel extends FutureViewModel {
   final _navigationService = locator<NavigationService>();
 
   @override
-  Future<String> futureToRun() => getDataFromServer();
+  Future<String> futureToRun() => delayUIDisplay();
 
-  Future<String> getDataFromServer() async {
-    await Future.delayed(const Duration(seconds: 3));
-    return "done";
+  Future<String> delayUIDisplay() async {
+    await Future.delayed(const Duration(seconds: 2));
+    return "";
   }
 
   double? get sharedData => _sharedDataService.sharedData;
