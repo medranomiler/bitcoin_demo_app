@@ -4,7 +4,7 @@ class FormValidators {
 
     final numericRegex = RegExp(r'^[0-9]+$');
     if (value == null || value.isEmpty) {
-      return "Purchse amount should not be empty";
+      return "Purchse amount must not be empty";
     }
 
     if (value.length > 6) {

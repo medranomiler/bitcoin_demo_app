@@ -7,15 +7,15 @@ import 'package:stacked_services/stacked_services.dart';
 class BuyViewModel extends FormViewModel {
   final _navigationService = locator<NavigationService>();
 
-
   navigateToPreviewPage(purchaseAmount) {
     _navigationService.replaceWithPreviewView(purchaseAmount: purchaseAmount);
   }
-  goBack(){
+
+  goBack() {
     _navigationService.replaceWithHomeView();
   }
 
-    @override
+  @override
   void setFormStatus() {
     // Set a validation message for the entire form
     if (hasPurchaseAmountValidationMessage) {
@@ -23,11 +23,12 @@ class BuyViewModel extends FormViewModel {
     }
   }
 
-    Future<void> saveData() async {
+  Future<void> saveData() async {
     if (!isFormValid) return;
 
     // here we can run custom functionality to save to our api
 
-     _navigationService.replaceWithPreviewView(purchaseAmount: int.parse(purchaseAmountValue!));
+    _navigationService.replaceWithPreviewView(
+        purchaseAmount: int.parse(purchaseAmountValue!));
   }
 }
