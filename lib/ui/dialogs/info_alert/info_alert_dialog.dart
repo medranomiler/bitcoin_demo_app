@@ -57,17 +57,20 @@ class InfoAlertDialog extends StackedView<InfoAlertDialogModel> {
                   ),
                 ),
                 Container(
-                  width: _graphicSize,
-                  height: _graphicSize,
-                  decoration: BoxDecoration(
-                    color: Colors.green[200],
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(_graphicSize / 2),
+                    width: _graphicSize,
+                    height: _graphicSize,
+                    decoration: BoxDecoration(
+                      color: Colors.green[200],
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(_graphicSize / 2),
+                      ),
                     ),
-                  ),
-                  alignment: Alignment.center,
-                  child: Icon(Icons.check,color: Colors.green[800], size: 48,)
-                )
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.check,
+                      color: Colors.green[800],
+                      size: 48,
+                    ))
               ],
             ),
             verticalSpaceMedium,

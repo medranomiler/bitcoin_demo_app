@@ -10,7 +10,6 @@ class PreviewView extends StackedView<PreviewViewModel> {
   const PreviewView({Key? key, required this.purchaseAmount}) : super(key: key);
   static const TextStyle textStyle =
       TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
-  
 
   @override
   Widget builder(
@@ -54,33 +53,33 @@ class PreviewView extends StackedView<PreviewViewModel> {
               ],
             ),
             Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.goBack();
-                      },
-                      child: const Text(
-                        "back",
-                        style: TextStyle(color: Colors.white),
-                      ),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MaterialButton(
+                    color: Colors.black,
+                    onPressed: () {
+                      viewModel.goBack();
+                    },
+                    child: const Text(
+                      "back",
+                      style: TextStyle(color: Colors.white),
                     ),
-                    MaterialButton(
-                      color: Colors.black,
-                      onPressed: () {
-                        viewModel.navigateToConfirmPage(purchaseAmount);
-                      },
-                      child: const Text(
-                        "Buy",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                  ),
+                  MaterialButton(
+                    color: Colors.black,
+                    onPressed: () {
+                      viewModel.navigateToConfirmPage(purchaseAmount);
+                    },
+                    child: const Text(
+                      "Buy",
+                      style: TextStyle(color: Colors.white),
                     ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
+            )
           ]),
         ),
       ),

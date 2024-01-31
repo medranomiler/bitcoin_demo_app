@@ -7,8 +7,9 @@ class LoadingIndicatorView extends StackedView<LoadingIndicatorViewModel> {
   const LoadingIndicatorView({super.key});
 
   @override
-  Widget builder(BuildContext context, LoadingIndicatorViewModel viewModel, Widget? child) {
-    return const  Row(
+  Widget builder(BuildContext context, LoadingIndicatorViewModel viewModel,
+      Widget? child) {
+    return const Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text('Loading ...', style: TextStyle(fontSize: 16)),
@@ -24,8 +25,8 @@ class LoadingIndicatorView extends StackedView<LoadingIndicatorViewModel> {
       ],
     );
   }
-  
-    @override
+
+  @override
   LoadingIndicatorViewModel viewModelBuilder(
     BuildContext context,
   ) =>

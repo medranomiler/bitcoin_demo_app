@@ -25,21 +25,19 @@ class ApiService {
     const String url = "https://mempool.space/api/v1/historical-price";
     final Uri uri = Uri.parse(url);
 
-      final http.Response response = await http.get(uri);
-      debugPrint(
-          "<btc_hstorical_price_provider>Status code: ${response.statusCode.toString()}");
+    final http.Response response = await http.get(uri);
+    debugPrint(
+        "<btc_hstorical_price_provider>Status code: ${response.statusCode.toString()}");
 
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> json = jsonDecode(response.body);
-        final List<dynamic> pricesData = json['prices'];
-        final prices = pricesData.map((e) {
-          return BitcoinHistoricalPrice(
-              time: (e['time'] ?? 0).toInt(), usd: (e['USD'] ?? 0).toInt());
-        }).toList();
-        return prices;
-      }
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = jsonDecode(response.body);
+      final List<dynamic> pricesData = json['prices'];
+      final prices = pricesData.map((e) {
+        return BitcoinHistoricalPrice(
+            time: (e['time'] ?? 0).toInt(), usd: (e['USD'] ?? 0).toInt());
+      }).toList();
+      return prices;
+    }
     throw Exception('Response Code: ${response.statusCode} - ${response.body}');
   }
 }
-
-

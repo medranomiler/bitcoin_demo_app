@@ -7,8 +7,12 @@ class TimePeriodButtonsView extends StackedView<TimePeriodButtonsViewModel> {
   final int currentIndex;
   final Function(int) onButtonPressed;
 
-  const TimePeriodButtonsView({super.key, required this.data, required this.currentIndex, required this.onButtonPressed});
- 
+  const TimePeriodButtonsView(
+      {super.key,
+      required this.data,
+      required this.currentIndex,
+      required this.onButtonPressed});
+
   @override
   Widget builder(
     BuildContext context,
@@ -20,13 +24,14 @@ class TimePeriodButtonsView extends StackedView<TimePeriodButtonsViewModel> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(8, 12, 8, 8),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: viewModel.generateButtons(data, currentIndex, onButtonPressed)
-        ),
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children:
+                viewModel.generateButtons(data, currentIndex, onButtonPressed)),
       ),
     );
   }
-    @override
+
+  @override
   TimePeriodButtonsViewModel viewModelBuilder(
     BuildContext context,
   ) =>

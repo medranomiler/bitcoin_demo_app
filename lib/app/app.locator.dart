@@ -12,7 +12,7 @@ import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
 import '../services/api_service.dart';
-import '../services/shared_service.dart';
+import '../services/shared_data_service.dart';
 
 final locator = StackedLocator.instance;
 
