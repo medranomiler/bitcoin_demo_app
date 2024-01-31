@@ -20,12 +20,12 @@ class PreviewViewModel extends BaseViewModel {
 
   calculateFees(purchaseAmount) {
     double fees = purchaseAmount / 100;
-    return "\$${fees.toString()}";
+    return "\$${fees.toStringAsFixed(2)}";
   }
 
   calculateTotal(purchaseAmount) {
     double total = purchaseAmount + (purchaseAmount / 100);
-    return "\$${total.toString()}";
+    return "\$${total.toStringAsFixed(2)}";
   }
 
   goBack() {
@@ -35,7 +35,8 @@ class PreviewViewModel extends BaseViewModel {
   navigateToConfirmPage(purchaseAmount) async {
     var response = await _bottomSheetService.showBottomSheet(
       title: "Confirm Purchase",
-      description: "Click the confirm button to submit your bitcoin purchase order.",
+      description:
+          "Click the confirm button to submit your bitcoin purchase order.",
       confirmButtonTitle: "Confirm",
       cancelButtonTitle: "Cancel",
     );

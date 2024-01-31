@@ -39,7 +39,8 @@ class _BitcoinChartViewState extends State<BitcoinChartView> {
                   },
                 ),
               ],
-            ) : const LoadingIndicatorView(),
+            )
+          : const LoadingIndicatorView(),
       viewModelBuilder: () => BitcoinChartViewModel(),
     );
   }

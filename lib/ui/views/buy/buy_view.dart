@@ -69,8 +69,12 @@ class BuyView extends StatelessWidget with $BuyView {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Checking Account ****0555", style: TextStyle( color: Colors.black, fontWeight: FontWeight.w500 )),
-                            Text("Limit of \$1,0000", style: TextStyle( color: kcMediumGrey ))
+                            Text("Checking Account ****0555",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500)),
+                            Text("Limit of \$1,0000",
+                                style: TextStyle(color: kcMediumGrey))
                           ],
                         ),
                         Icon(Icons.keyboard_arrow_down),

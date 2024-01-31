@@ -1,5 +1,4 @@
 import 'package:bitcoin_demo_app/services/api_service.dart';
-import 'package:bitcoin_demo_app/services/shared_service.dart';
 import 'package:bitcoin_demo_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:bitcoin_demo_app/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:bitcoin_demo_app/ui/views/home/home_view.dart';
@@ -10,6 +9,7 @@ import 'package:bitcoin_demo_app/ui/views/buy/buy_view.dart';
 import 'package:bitcoin_demo_app/ui/views/preview/preview_view.dart';
 import 'package:bitcoin_demo_app/ui/views/confirmation/confirmation_view.dart';
 import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
+import 'package:bitcoin_demo_app/services/shared_data_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -26,8 +26,9 @@ import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
     LazySingleton(classType: ApiService),
+
     LazySingleton(classType: SharedDataService),
-    // @stacked-service
+// @stacked-service
   ],
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
