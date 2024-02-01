@@ -1,4 +1,5 @@
 import 'package:bitcoin_demo_app/app/app.locator.dart';
+import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -12,8 +13,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
-  MockSpec<SharedDataService>(
-      onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<SharedDataService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<ApiService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -21,6 +22,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterSharedDataService();
+  getAndRegisterApiService();
 // @stacked-mock-register
 }
 
@@ -80,6 +82,13 @@ MockSharedDataService getAndRegisterSharedDataService() {
   locator.registerSingleton<SharedDataService>(service);
   return service;
 }
+
+MockApiService getAndRegisterApiService() {
+  _removeRegistrationIfExists<ApiService>();
+  final service = MockApiService();
+  locator.registerSingleton<ApiService>(service);
+  return service;
+}
 // @stacked-mock-create
 
 void _removeRegistrationIfExists<T extends Object>() {
@@ -91,4 +100,7 @@ void _removeRegistrationIfExists<T extends Object>() {
 void unregisterServices() {
   locator.unregister<NavigationService>();
   locator.unregister<DialogService>();
+  locator.unregister<BottomSheetService>();
+  locator.unregister<ApiService>();
+  locator.unregister<SharedDataService>();
 }

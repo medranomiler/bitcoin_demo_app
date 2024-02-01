@@ -1,24 +1,24 @@
-import 'dart:convert';
-import "package:bitcoin_demo_app/models/btc_price_model.dart";
-import 'package:bitcoin_demo_app/models/btc_historical_price_model.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
-class MockHttpClient extends Mock implements http.Client {}
+import 'api_service_test.mocks.dart';
 
+
+@GenerateMocks([http.Client])
 void main() {
   group('ApiServiceTest -', () {
     test('getBitcoinPrice - Successful response', () async {
-      final client = MockHttpClient();
+      final client = MockClient();
 
       when(client.get(Uri.parse("https://mempool.space/api/v1/prices")))
           .thenAnswer((_) async => http.Response('{"USD": 50000}', 200));
 
       final apiService = ApiService();
 
-      final result = await apiService.getBitcoinPrice();
+      final result = await apiService.getBitcoinPrice(client);
 
       verify(client.get(Uri.parse("https://mempool.space/api/v1/prices")));
 
@@ -26,25 +26,25 @@ void main() {
     });
 
     test('getBitcoinPrice - Error response', () async {
-      final client = MockHttpClient();
+      final client = MockClient();
 
       when(client.get(Uri.parse("https://mempool.space/api/v1/prices")))
           .thenAnswer((_) async => http.Response('Error', 404));
 
       final apiService = ApiService();
 
-      expect(() => apiService.getBitcoinPrice(), throwsException);
+      expect(() => apiService.getBitcoinPrice(client), throwsException);
     });
 
     test('getBitcoinHistoricalPrices - Successful response', () async {
-      final client = MockHttpClient();
+      final client = MockClient();
 
       when(client.get(Uri.parse("https://mempool.space/api/v1/historical-price")))
           .thenAnswer((_) async => http.Response('{"prices": [{"time": 1, "USD": 50000}]}', 200));
 
       final apiService = ApiService();
 
-      final result = await apiService.getBitcoinHistoricalPrices();
+      final result = await apiService.getBitcoinHistoricalPrices(client);
 
       verify(client.get(Uri.parse("https://mempool.space/api/v1/historical-price")));
 
@@ -54,14 +54,14 @@ void main() {
     });
 
     test('getBitcoinHistoricalPrices - Error response', () async {
-      final client = MockHttpClient();
+      final client = MockClient();
 
       when(client.get(Uri.parse("https://mempool.space/api/v1/historical-price")))
           .thenAnswer((_) async => http.Response('Error', 404));
 
       final apiService = ApiService();
 
-      expect(() => apiService.getBitcoinHistoricalPrices(), throwsException);
+      expect(() => apiService.getBitcoinHistoricalPrices(client), throwsException);
     });
   });
 }
