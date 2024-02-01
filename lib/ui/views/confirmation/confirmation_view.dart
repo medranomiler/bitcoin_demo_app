@@ -11,11 +11,6 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
   const ConfirmationView({Key? key, required this.purchaseAmount})
       : super(key: key);
 
-  static const TextStyle textStyle0 =
-      TextStyle(fontSize: 14, fontWeight: FontWeight.w700);
-  static const TextStyle textStyle1 =
-      TextStyle(fontSize: 40, fontWeight: FontWeight.w700);
-
   @override
   Widget builder(
     BuildContext context,
@@ -40,20 +35,20 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                        Text(
                           "You stacked\nsome sats!",
                           textAlign: TextAlign.center,
-                          style: textStyle1,
+                          style: viewModel.textStyle1,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("\$${purchaseAmount.toString()}",
-                                style: textStyle0),
+                                style: viewModel.textStyle0),
                             const Icon(Icons.arrow_right_alt_sharp),
                             Text(
                               viewModel.formatBTC(viewModel.sharedData),
-                              style: textStyle0,
+                              style: viewModel.textStyle0,
                             ),
                           ],
                         ),

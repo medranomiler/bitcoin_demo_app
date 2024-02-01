@@ -8,8 +8,6 @@ import 'buy_viewmodel.dart';
 class BuyView extends StatelessWidget with $BuyView {
   BuyView({Key? key}) : super(key: key);
 
-  static const TextStyle textStyle =
-      TextStyle(fontSize: 48, fontWeight: FontWeight.w700, color: Colors.black);
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuyViewModel>.reactive(
@@ -34,26 +32,27 @@ class BuyView extends StatelessWidget with $BuyView {
                   enableSuggestions: true,
                   expands: false,
                   focusNode: purchaseAmountFocusNode,
-                  style: textStyle,
+                  style: viewModel.textStyle,
                   maxLength: 6,
-                  decoration: const InputDecoration(
-                    prefixStyle: textStyle,
+                  decoration: InputDecoration(
+                    prefixStyle: viewModel.textStyle,
                     prefixText: "Buy \$",
-                    hintText:
-                        String.fromEnvironment("100", defaultValue: "100"),
-                    border: UnderlineInputBorder(borderSide: BorderSide.none),
+                    hintText: const String.fromEnvironment("100",
+                        defaultValue: "100"),
+                    border:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
                     counterText: "",
                   ),
                   onFieldSubmitted: (_) => viewModel.saveData(),
                 ),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         "in Bitcoin",
-                        style: textStyle,
+                        style: viewModel.textStyle,
                       ),
                     ],
                   ),

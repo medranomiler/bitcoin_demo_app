@@ -26,8 +26,8 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
 
   Stream<int> getBitcoinPrice() async* {
     while (true) {
-      final response = await _apiService.getBitcoinPrice(http.Client());
-      yield response;
+      final data = await _apiService.getBitcoinPrice(http.Client());
+      yield data;
       swapSources();
     }
   }
@@ -35,9 +35,8 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
   Stream<int> getDelayedBitcoinPrice() async* {
     while (true) {
       await Future.delayed(const Duration(seconds: 30));
-      final response = await _apiService.getBitcoinPrice(http.Client());
-      data = response;
-      yield response;
+      final data = await _apiService.getBitcoinPrice(http.Client());
+      yield data;
     }
   }
 

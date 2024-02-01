@@ -8,8 +8,6 @@ class PreviewView extends StackedView<PreviewViewModel> {
   final int purchaseAmount;
 
   const PreviewView({Key? key, required this.purchaseAmount}) : super(key: key);
-  static const TextStyle textStyle =
-      TextStyle(fontSize: 16, fontWeight: FontWeight.w700);
 
   @override
   Widget builder(
@@ -28,17 +26,17 @@ class PreviewView extends StackedView<PreviewViewModel> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Purchase amount", style: textStyle),
+                  Text("Purchase amount", style: viewModel.textStyle),
                   Text(viewModel.formatPurchaseAmount(viewModel.purchaseAmount),
-                      style: textStyle)
+                      style: viewModel.textStyle)
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Fees", style: textStyle),
+                  Text("Fees", style: viewModel.textStyle),
                   Text(viewModel.calculateFees(viewModel.purchaseAmount),
-                      style: textStyle)
+                      style: viewModel.textStyle)
                 ],
               ),
               const Divider(
@@ -48,9 +46,9 @@ class PreviewView extends StackedView<PreviewViewModel> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("Total", style: textStyle),
+                  Text("Total", style: viewModel.textStyle),
                   Text(viewModel.calculateTotal(viewModel.purchaseAmount),
-                      style: textStyle)
+                      style: viewModel.textStyle)
                 ],
               ),
               Padding(
