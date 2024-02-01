@@ -19,7 +19,7 @@ class USDBitcoinAmountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<USDBitcoinAmountViewModel>.reactive(
-      builder: (context, model, child) => model.isBusy || model.data == null ? LoadingIndicatorView() : 
+      builder: (context, model, child) => model.isBusy || model.data == null ? const LoadingIndicatorView() : 
           Center(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 24),
@@ -37,7 +37,7 @@ class USDBitcoinAmountView extends StatelessWidget {
                           style: textStyle1,
                         ),
                         Row(children: [
-                          QuoteProgressIndicator(),
+                          const QuoteProgressIndicator(),
                           Text(
                             model.formatPrice(model.data),
                             style: textStyle2,

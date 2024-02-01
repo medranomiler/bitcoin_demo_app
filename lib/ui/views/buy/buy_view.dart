@@ -14,7 +14,6 @@ class BuyView extends StatelessWidget with $BuyView {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BuyViewModel>.reactive(
       onViewModelReady: (viewModel) {
-        // #3: Listen to text updates by calling listenToFormUpdated(model);
         syncFormWithViewModel(viewModel);
       },
       onDispose: (model) => disposeForm(),
