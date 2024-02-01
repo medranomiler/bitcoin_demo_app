@@ -75,4 +75,11 @@ class USDBitcoinAmountViewModel extends StreamViewModel<int> {
       _navigationService.replaceWithBuyView();
     }
   }
+
+  TextStyle textStyle0 =
+      const TextStyle(fontSize: 34, fontWeight: FontWeight.w900);
+  TextStyle textStyle1 =
+      const TextStyle(fontSize: 24, fontWeight: FontWeight.w900);
+  TextStyle textStyle2 =
+      const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
 }

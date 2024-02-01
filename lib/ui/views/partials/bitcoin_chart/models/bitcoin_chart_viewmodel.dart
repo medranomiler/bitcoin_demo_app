@@ -8,6 +8,7 @@ import "package:http/http.dart" as http;
 class BitcoinChartViewModel extends StreamViewModel<List> {
   final _apiService = locator<ApiService>();
   bool _delayPriceUpdates = false;
+  int currentIndex = 0;
 
   @override
   Stream<List> get stream =>
@@ -20,7 +21,8 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
 
   Stream<List> getDataArray() async* {
     while (true) {
-      final response = await _apiService.getBitcoinHistoricalPrices(http.Client());
+      final response =
+          await _apiService.getBitcoinHistoricalPrices(http.Client());
       List<FlSpot> formattedDataAll = response
           .where((e) => e.usd > 1)
           .toList()
@@ -53,7 +55,8 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
     setBusy(true);
     while (true) {
       await Future.delayed(const Duration(minutes: 60));
-      final response = await _apiService.getBitcoinHistoricalPrices(http.Client());
+      final response =
+          await _apiService.getBitcoinHistoricalPrices(http.Client());
       List<FlSpot> formattedDataAll = response
           .where((e) => e.usd > 1)
           .toList()
@@ -77,9 +80,14 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
           'data': formattedDataAll,
         },
       ];
-
+      setBusy(false);
       yield formattedDataArray;
     }
+  }
+
+  void updateCurrentIndex(int index) {
+    currentIndex = index;
+    notifyListeners();
   }
 
   Widget calculatePercentChange(List<FlSpot> data) {
