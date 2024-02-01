@@ -7,6 +7,7 @@ import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import "package:http/http.dart" as http;
 
 class BitcoinPriceStreamModel extends StreamViewModel<int> {
   final _apiService = locator<ApiService>();
@@ -26,7 +27,7 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
 
   Stream<int> getBitcoinPrice() async* {
     while (true) {
-      final response = await _apiService.getBitcoinPrice();
+      final response = await _apiService.getBitcoinPrice(http.Client());
       yield response;
       swapSources();
     }
@@ -35,7 +36,7 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
   Stream<int> getDelayedBitcoinPrice() async* {
     while (true) {
       await Future.delayed(const Duration(seconds: 30));
-      final response = await _apiService.getBitcoinPrice();
+      final response = await _apiService.getBitcoinPrice(http.Client());
       data = response;
       yield response;
     }

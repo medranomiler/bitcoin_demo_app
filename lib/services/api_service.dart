@@ -5,11 +5,11 @@ import 'package:http/http.dart' as http;
 import '../models/btc_historical_price_model.dart';
 
 class ApiService {
-  Future<int> getBitcoinPrice() async {
+  Future<int> getBitcoinPrice(http.Client client) async {
     const String url = "https://mempool.space/api/v1/prices";
     final Uri uri = Uri.parse(url);
 
-    final http.Response response = await http.get(uri);
+    final http.Response response = await client.get(uri);
     debugPrint("Status code: ${response.statusCode.toString()}");
     if (response.statusCode == 200) {
       Map<String, dynamic> json = jsonDecode(response.body);
@@ -21,11 +21,11 @@ class ApiService {
     throw Exception('Response Code: ${response.statusCode} - ${response.body}');
   }
 
-  Future<List<BitcoinHistoricalPrice>> getBitcoinHistoricalPrices() async {
+  Future<List<BitcoinHistoricalPrice>> getBitcoinHistoricalPrices(http.Client client) async {
     const String url = "https://mempool.space/api/v1/historical-price";
     final Uri uri = Uri.parse(url);
 
-    final http.Response response = await http.get(uri);
+    final http.Response response = await client.get(uri);
     debugPrint(
         "<btc_hstorical_price_provider>Status code: ${response.statusCode.toString()}");
 

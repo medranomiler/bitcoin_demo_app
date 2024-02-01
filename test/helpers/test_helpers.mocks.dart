@@ -6,9 +6,12 @@
 import 'dart:async' as _i5;
 import 'dart:ui' as _i6;
 
-import 'package:bitcoin_demo_app/services/shared_data_service.dart'
-    as _i7;
+import 'package:bitcoin_demo_app/models/btc_historical_price_model.dart'
+    as _i10;
+import 'package:bitcoin_demo_app/services/api_service.dart' as _i8;
+import 'package:bitcoin_demo_app/services/shared_data_service.dart' as _i7;
 import 'package:flutter/material.dart' as _i4;
+import 'package:http/http.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i3;
 import 'package:stacked_services/stacked_services.dart' as _i2;
@@ -672,5 +675,43 @@ class MockDialogService extends _i1.Mock implements _i2.DialogService {
 /// A class which mocks [SharedDataService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSharedDataService extends _i1.Mock
-    implements _i7.SharedDataService {}
+class MockSharedDataService extends _i1.Mock implements _i7.SharedDataService {
+  @override
+  set sharedData(double? _sharedData) => super.noSuchMethod(
+        Invocation.setter(
+          #sharedData,
+          _sharedData,
+        ),
+        returnValueForMissingStub: null,
+      );
+}
+
+/// A class which mocks [ApiService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockApiService extends _i1.Mock implements _i8.ApiService {
+  @override
+  _i5.Future<int> getBitcoinPrice(_i9.Client? client) => (super.noSuchMethod(
+        Invocation.method(
+          #getBitcoinPrice,
+          [client],
+        ),
+        returnValue: _i5.Future<int>.value(0),
+        returnValueForMissingStub: _i5.Future<int>.value(0),
+      ) as _i5.Future<int>);
+
+  @override
+  _i5.Future<List<_i10.BitcoinHistoricalPrice>> getBitcoinHistoricalPrices(
+          _i9.Client? client) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getBitcoinHistoricalPrices,
+          [client],
+        ),
+        returnValue: _i5.Future<List<_i10.BitcoinHistoricalPrice>>.value(
+            <_i10.BitcoinHistoricalPrice>[]),
+        returnValueForMissingStub:
+            _i5.Future<List<_i10.BitcoinHistoricalPrice>>.value(
+                <_i10.BitcoinHistoricalPrice>[]),
+      ) as _i5.Future<List<_i10.BitcoinHistoricalPrice>>);
+}

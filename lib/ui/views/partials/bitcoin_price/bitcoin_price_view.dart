@@ -1,3 +1,4 @@
+import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_chart/views/loading_indicator_view.dart';
 import 'package:bitcoin_demo_app/ui/views/partials/bitcoin_price/bitcoin_price_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -7,7 +8,7 @@ class BitcoinPriceStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BitcoinPriceStreamModel>.reactive(
-      builder: (context, model, child) => Center(
+      builder: (context, model, child) => model.isBusy || model.data == null ? LoadingIndicatorView() : Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
