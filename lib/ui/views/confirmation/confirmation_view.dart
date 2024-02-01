@@ -29,7 +29,6 @@ class ConfirmationView extends StackedView<ConfirmationViewModel> {
           : SafeArea(
               child: Stack(
                 children: [
-                  // Lottie animation filling the background
                   Positioned.fill(
                     child: Lottie.asset(
                       'assets/bitcoins.json',

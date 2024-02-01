@@ -77,7 +77,7 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
           'data': formattedDataAll,
         },
       ];
-
+      setBusy(false);
       yield formattedDataArray;
     }
   }

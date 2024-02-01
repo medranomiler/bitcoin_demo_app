@@ -19,31 +19,35 @@ class USDBitcoinAmountView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<USDBitcoinAmountViewModel>.reactive(
-      builder: (context, model, child) => model.isBusy || model.data == null ? const LoadingIndicatorView() : 
-          Center(
+      builder: (context, model, child) => model.isBusy || model.data == null
+          ? const LoadingIndicatorView()
+          : Center(
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 24),
                 child: SizedBox(
                   width: double.infinity,
                   child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "You're buying",
-                          style: textStyle0,
-                        ),
-                        Text(
-                          model.convertToBtc(purchaseAmount, model.data),
-                          style: textStyle1,
-                        ),
-                        Row(children: [
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "You're buying",
+                        style: textStyle0,
+                      ),
+                      Text(
+                        model.convertToBtc(purchaseAmount, model.data),
+                        style: textStyle1,
+                      ),
+                      Row(
+                        children: [
                           const QuoteProgressIndicator(),
                           Text(
                             model.formatPrice(model.data),
                             style: textStyle2,
                           ),
-                        ])
-                      ]),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
