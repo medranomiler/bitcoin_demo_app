@@ -17,7 +17,6 @@ class BuyViewModel extends FormViewModel {
 
   @override
   void setFormStatus() {
-    // Set a validation message for the entire form
     if (hasPurchaseAmountValidationMessage) {
       setValidationMessage('Error in the form, please check again');
     }
@@ -25,9 +24,6 @@ class BuyViewModel extends FormViewModel {
 
   Future<void> saveData() async {
     if (!isFormValid) return;
-
-    // here we can run custom functionality to save to our api
-
     _navigationService.replaceWithPreviewView(
         purchaseAmount: int.parse(purchaseAmountValue!));
   }

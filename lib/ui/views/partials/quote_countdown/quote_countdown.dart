@@ -42,7 +42,7 @@ class _QuoteProgressIndicatorState extends State<QuoteProgressIndicator> {
     double progress = countdown / 10;
 
     return Padding(
-      padding: EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.only(right: 8),
       child: SizedBox(
         width: 16,
         height: 16,

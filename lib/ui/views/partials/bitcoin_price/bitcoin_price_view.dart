@@ -8,7 +8,7 @@ class BitcoinPriceStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<BitcoinPriceStreamModel>.reactive(
-      builder: (context, model, child) => model.isBusy || model.data == null ? LoadingIndicatorView() : Center(
+      builder: (context, model, child) => model.isBusy || model.data == null ? const LoadingIndicatorView() : Center(
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

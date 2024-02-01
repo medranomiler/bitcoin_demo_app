@@ -1,8 +1,6 @@
 import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/app/app.router.dart';
-import 'package:bitcoin_demo_app/ui/dialogs/error/error_dialog.dart';
-import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

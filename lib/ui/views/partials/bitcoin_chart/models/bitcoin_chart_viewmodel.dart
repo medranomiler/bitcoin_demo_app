@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:bitcoin_demo_app/app/app.locator.dart';
 import 'package:bitcoin_demo_app/services/api_service.dart';
 import 'package:fl_chart/fl_chart.dart';
