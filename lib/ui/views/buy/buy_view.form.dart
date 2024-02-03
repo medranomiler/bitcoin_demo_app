@@ -30,6 +30,7 @@ mixin $BuyView {
   FocusNode get purchaseAmountFocusNode =>
       _getFormFocusNode(PurchaseAmountValueKey);
 
+  // ignore: unused_element
   TextEditingController _getFormTextEditingController(
     String key, {
     String? initialValue,

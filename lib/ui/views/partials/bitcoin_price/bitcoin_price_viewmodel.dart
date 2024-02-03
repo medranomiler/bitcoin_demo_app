@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async';
 import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
@@ -43,6 +45,7 @@ class BitcoinPriceStreamModel extends StreamViewModel<int> {
   formatPrice(price) {
     return "\$${price.toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
   }
+
 
   @override
   void dispose() {
