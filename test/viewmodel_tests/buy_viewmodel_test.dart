@@ -17,7 +17,7 @@ void main() {
         () async {
       final navigationService = getAndRegisterNavigationService();
       final model = BuyViewModel();
-      final purchaseAmount = 100;
+      const purchaseAmount = 100;
 
       await model.navigateToPreviewPage(purchaseAmount);
 

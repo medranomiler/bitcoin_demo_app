@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_overrides
+
 import 'dart:async';
 import 'package:bitcoin_demo_app/app/app.dialogs.dart';
 import 'package:bitcoin_demo_app/app/app.locator.dart';
