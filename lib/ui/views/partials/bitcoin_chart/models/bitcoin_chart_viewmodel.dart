@@ -20,7 +20,6 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
   }
 
   Stream<List> getDataArray() async* {
-    while (true) {
       final response =
           await _apiService.getBitcoinHistoricalPrices(http.Client());
       List<FlSpot> formattedDataAll = response
@@ -48,12 +47,10 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
       ];
       yield formattedDataArray;
       swapSources();
-    }
   }
 
   Stream<List> getDelayedDataArray() async* {
     setBusy(true);
-    while (true) {
       await Future.delayed(const Duration(minutes: 60));
       final response =
           await _apiService.getBitcoinHistoricalPrices(http.Client());
@@ -82,7 +79,6 @@ class BitcoinChartViewModel extends StreamViewModel<List> {
       ];
       setBusy(false);
       yield formattedDataArray;
-    }
   }
 
   void updateCurrentIndex(int index) {
